@@ -1,0 +1,29 @@
+﻿@using WebCore.Services;
+<aside id="chatSidebar" class="chat-sidebar" data-sidebar="true">
+    <div class="conversation-panel__header">
+        <select id="ddlChatRoom" name="ddlChatRoom" class="form-control show-tick" data-live-search="true">
+            <option value="">-Công việc-</option>
+            @Html.Raw(WorkService.DDLWorkChat(""))
+        </select>
+    </div>
+    <div id="chatLog" class="conversation-panel__content"></div>
+    <div class="conversation-panel__footer">
+        <div class="composer">
+            <div class="composer__middle">
+                <textarea id="chatInput" class="chart-textarea" rows="1" placeholder="Type a message..."></textarea>
+                <div class="composer__middle--photo">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <div class="composer__middle--attachment">
+                    <i class="fas fa-paperclip"></i>
+                </div>
+            </div>
+
+            <div class="composer__right">
+                <div id="chatSend" class="composer__right--send">
+                    <i class="fas fa-paper-plane"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>

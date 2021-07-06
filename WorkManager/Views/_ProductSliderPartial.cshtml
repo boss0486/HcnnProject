@@ -1,0 +1,108 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+@using Helper.Language;
+@using Helper.TimeData;
+@{
+    string title = string.Empty;
+    string summary = string.Empty;
+    string address = string.Empty;
+    string workTime = string.Empty;
+    string hotline = string.Empty;
+    string tel = string.Empty;
+    string email = string.Empty;
+    string gmaps = string.Empty;
+    List<WebCore.Entities.SocialNetwork> socialNetworks = SocialNetworkService.GetSocialNetworkForHome("");
+    WebCore.Entities.Site site = WebCore.Services.SiteService.GetSiteForHome("");
+    if (site != null)
+    {
+        title = site.Title;
+        summary = site.Summary;
+        address = site.Address;
+        workTime = site.WorkTime;
+        hotline = site.Phone;
+        tel = site.Tel;
+        email = site.Email;
+        gmaps = site.Gmaps;
+    }
+}
+<section class="footer-bar section-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 item-box">
+                <div class="form-group item-text">
+                    <i class="fas fa-check-circle item-icon"></i>
+                    <span>Sản phẩm, hàng hóa</span>
+                    <span>
+                        Chính hãng, đa dạng, phong phú.
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-4 item-box">
+                <div class="form-group item-text">
+                    <i class="fas fa-check-circle item-icon"></i>
+                    <span>Dịch vụ</span> <span>Chất lượng uy tín.</span>
+                </div>
+            </div>
+            <div class="col-md-4 item-box">
+                <div class="form-group item-text">
+                    <i class="fas fa-check-circle item-icon"></i>
+                    <span>Tư vấn bán hàng</span> <span>1900 6788</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer id="footer">
+
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 footer-info">
+                    <h3 style="text-transform:uppercase">@title</h3>
+                    <div class="summary">@summary</div>
+                    <div class="form-group">
+                        <p><i class="fa fa-envelope-o"></i> &nbsp;Email: @email</p>
+                        <p><i class="fa fa-phone"></i> &nbsp; Điện thoại: @tel, hotline: @hotline</p>
+                        <p><i class="fas fa-clock"></i> &nbsp;G.Làm việc: @workTime</p>
+                        <p><i class="fas fa-map-marker"></i> &nbsp; Địa chỉ: @address</p>
+                    </div>
+                </div>
+                <div class="col-md-5 footer-contact footer-newsletter">
+                    <h4>Bản đồ gmaps</h4>
+                    <div class="form-group wrap-gmaps">
+                        @Html.Raw(gmaps)
+                    </div>
+                    @*<div class="form-group">
+                            <input type="email" name="email"><input type="submit" value="Subscribe">
+                        </div>*@
+                    <h4>Theo dõi chúng tôi</h4>
+                    <div class="social-links">
+                        @{
+                            if (socialNetworks.Count() > 0)
+                            {
+                                List<SocialNetworkIcon> socialNetworkIcons = SocialNetworkService.SocialNetworkIcon().ToList();
+
+                                foreach (var item in socialNetworks)
+                                {
+                                    string iconPath = Helper.Page.Default.FileNoImange;
+                                    SocialNetworkIcon socialNetworkIcon = socialNetworkIcons.Where(m => m.ID == item.IconID).FirstOrDefault();
+                                    if (socialNetworkIcon != null)
+                                    {
+                                        iconPath = socialNetworkIcon.Icon;
+                                    }
+                                    <a title="@item.Title" href="@item.BackLink" class="twitter"><img src="@iconPath" alt="@item.Title" height="24" /></a>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="copyright text-left">
+                &copy; 2021 Copyright <strong>Allen</strong>. All rights reserved
+            </div>
+        </div>
+    </div>
+</footer>

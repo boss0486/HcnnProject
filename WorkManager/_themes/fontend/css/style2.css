@@ -1,0 +1,53 @@
+﻿.cz-handheld-toolbar {
+    display: none;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    transition: all .3s .35s ease-in-out;
+    border-top: 1px solid #e3e9ef;
+    background-color: #fff;
+    box-shadow: -1.25rem 0 2rem 0 rgba(43,52,69,.15);
+    z-index: 1026
+}
+
+.cz-handheld-toolbar-item {
+    padding: .5rem;
+    padding-top: .125rem;
+    border-left: 1px solid #e3e9ef;
+    text-align: center
+}
+
+    .cz-handheld-toolbar-item:first-child {
+        border-right: 0
+    }
+
+    .cz-handheld-toolbar-item .badge, .cz-handheld-toolbar-item .wc-bacs-bank-details-account-name, .cz-handheld-toolbar-item .dokan-dashboard .dokan-label, .dokan-dashboard .cz-handheld-toolbar-item .dokan-label {
+        font-size: .625rem
+    }
+
+.cz-handheld-toolbar-icon {
+    display: block;
+    color: #4b566b;
+    font-size: 1.25rem
+}
+
+    .cz-handheld-toolbar-icon > i, .cz-handheld-toolbar-icon > .badge, .cz-handheld-toolbar-icon > .wc-bacs-bank-details-account-name, .dokan-dashboard .cz-handheld-toolbar-icon > .dokan-label {
+        display: inline-block;
+        vertical-align: middle
+    }
+
+.cz-handheld-toolbar-label {
+    display: block;
+    color: #7d879c;
+    font-size: .6875rem
+}
+
+@media(max-width:991.98px) {
+
+    .cz-handheld-toolbar {
+        display: block
+    }
+}
+/**********************************************************************************************************************************************************************************/
+  

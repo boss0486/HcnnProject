@@ -1,0 +1,152 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@model WebCore.Entities.ArticleResult
+@{
+    List<ArticleCategory> productCategories = ArticleCategoryService.GetArticleCategoryList();
+    List<WebCore.Entities.Support> supports = SupportService.GetSupportList();
+}
+<section class="about main-content">
+    <div class="container">
+        <div class="pro-details">
+            <div class="row">
+                <div class="col-md-9">
+                    <header class="section-header">
+                        <h3 class="head-text">Chi tiết</h3>
+                    </header>
+                    <div class="form-group mt-5">
+                        <h1 class="name">@Model.Title</h1>
+                        <div class="form-group"><span><i class="fas fa-calendar"></i> @Model.ViewDate</span> | <span><i class="fas fa-check-circle"></i> @Model.ViewTotal</span></div>
+                        @Html.Raw(Model.HtmlText)
+                    </div>
+                    <div class="form-group"><a href="#" data-btnback="true" class=" button-link"><i class="fas fa-arrow-circle-left"></i> Quay lại</a></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="section-header">
+                        <h2 class="head-text">Danh mục</h2>
+                        <div class="list-group list-group-flush vertical-category">
+                            @foreach (var item in productCategories)
+                            {
+                                string active = string.Empty;
+                                if (item.ID == Model.CategoryID)
+                                {
+                                    active = "active";
+                                }
+                                <a href="/bai-viet/@item.Alias" class="list-group-item list-group-item-action @active"><i class="fas fa-arrows-alt"></i> @item.Title</a>
+                            }
+                        </div>
+                    </div>
+                    <div class="section-header">
+                        <h2 class="head-text">Hỗ trợ</h2>
+                        <div class="list-group list-group-flush vertical-support">
+                            @foreach (var item in supports)
+                            {
+                                <div class="list-group-item">
+                                    <i class="fas fa-headset"></i> <span>@item.Title</span>
+                                    <br />
+                                    <div class="summary">@item.Summary</div>
+                                </div>
+                            }
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <div class="box-slider">
+            <header class="section-header">
+                <h3 class="head-text">Tin liên quan</h3>
+            </header>
+            <div class="form-group" style="position:relative;">
+                <div class="owl-nav-service text-right"></div>
+                <div id="OwlNewsOthers" class="owl-carousel">
+                    @{
+                        List<ArticleHome> articleHomes = ArticleService.GetArticleOther(Model.CategoryID, Model.ID);
+                        foreach (var item in articleHomes)
+                        {
+                            <div class="item-col">
+                                <div class="img">
+                                    <img src="@item.ImagePath" alt="@item.Title" class="img-fluid" />
+                                    @*<div class="icon"><i class="fa fa-check" aria-hidden="true"></i></div>*@
+                                </div>
+                                <a href="/bai-viet/chi-tiet/@item.Alias"><h2 class="title">@item.Title</h2></a>
+                                <div class="summary">
+                                    @item.Summary
+                                </div>
+                                <p class="details"><a href="/bai-viet/chi-tiet/@item.Alias" class="link">Chi tiết</a></p>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#OwlNewsOthers').owlCarousel({
+                margin: 20,
+                autoplay: true,
+                autoplayTimeout: 2000,
+                responsiveClass: true,
+                navText: ["<i class='fa fa-angle-left' aria-hidden='true'></i>", "<i class='fa fa-angle-right' aria-hidden='true'></i>"],
+                navContainerClass: "owl-nav-service",
+                responsive: {
+                    0: {
+                        items: 1,
+                        //nav: true
+                    },
+                    420: {
+                        items: 1,
+                        //nav: false
+                    },
+                    768: {
+                        items: 2,
+                        nav: true,
+                        //loop: true
+                    },
+                    1024: {
+                        items: 3,
+                        nav: true,
+                        //loop: true
+                    },
+                    1366: {
+                        items: 4,
+                        nav: true,
+                        //loop: true
+                    }
+                },
+                //margin: 10,
+                //autoplay: true,
+                //autoplayTimeout: 2000,
+                //autoplayHoverPause: true,
+                //// Most important owl features
+                //items: 4,
+                //itemsDesktop: [1199, 4],
+                //itemsDesktopSmall: [980, 3],
+                //itemsTablet: [768, 2],
+                //itemsTabletSmall: false,
+                //itemsMobile: [479, 1],
+                //singleItem: false,
+
+                //// Navigation
+                //navigation: false,
+                //navigationText: ["prev", "next"],
+                //rewindNav: true,
+                //scrollPerPage: false,
+            });
+        });
+
+    </script>
+}

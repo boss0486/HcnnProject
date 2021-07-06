@@ -1,0 +1,94 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@model  PagedList.IPagedList<WebCore.Entities.FaqResult>
+
+<section class="faq main-content">
+    <div class="container">
+        <header class="section-header">
+            <h3 class="head-text">@ViewBag.CategoryText</h3>
+        </header>
+       
+            @foreach (var item in Model)
+            {
+                string ctr = $"collapse{item.ID}";
+                <div class="form-group">
+                    <div class="card">
+                        <div class="card-header" id="@item.ID" data-toggle="collapse" data-target="#@ctr" aria-expanded="true" aria-controls="@ctr">
+                            <a class="btn-link"><i class="fas fa-question-circle"></i> @item.Title</a>
+                        </div> 
+                        <div id="@ctr" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <i class="far fa-hand-point-right"></i> @item.Summary
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+       
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group"><a href="#" data-btnback="true" class=" button-link"><i class="fas fa-arrow-circle-left"></i> Quay lại</a></div>
+            </div>
+            <div class="col-md-10">
+                @{ if (Model.Count() > 0)
+                    {
+                        <div class="form-group text-right">
+                            <nav aria-label="Page navigation example">
+                                @Html.PagedListPager(Model, page => Url.Action("DataList", new { page }), Helper.Pagination.PagedRender.PagedListRenderOption(1))
+                            </nav>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+
+        @{ 
+            Site site = SiteService.GetSiteForHome("");
+        }
+        <div class="form-group mgt-90">
+            <hr />
+        </div>
+
+
+        <div id="contact" class="row">
+            <div class="col-md-4 contact-info">
+                <div class="contact-address">
+                    <i class="ion-ios-location-outline"></i>
+                    <h3>Address</h3>
+                    <address>@site.Address</address>
+                </div>
+            </div>
+
+            <div class="col-md-4 contact-info">
+                <div class="contact-phone">
+                    <i class="ion-ios-telephone-outline"></i>
+                    <h3>Phone Number</h3>
+                    <p><a href="tel:@site.Tel">@site.Phone</a></p>
+                </div>
+            </div>
+
+            <div class="col-md-4 contact-info">
+                <div class="contact-email">
+                    <i class="ion-ios-email-outline"></i>
+                    <h3>Email</h3>
+                    <p><a href="@site.Email">@site.Email</a></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

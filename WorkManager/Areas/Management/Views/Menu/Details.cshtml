@@ -1,0 +1,75 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@model WebCore.Entities.ViewMenu
+@{
+
+    string parentId = "";
+    string id = "";
+    string title = "";
+    string alias = "";
+    string summary = "";
+    string languageId = "";
+    string createdBy = "";
+    string createdDate = "";
+    string enabled = "None";
+    string path = "";
+    string pathAction = "";
+    string iconFont = "";
+    string imageFile = "";
+    string pageTemlate = "";
+    string backLink = "";
+    string mvcController = "";
+    string mvcAction = "";
+    if (Model != null)
+    {
+        id = Model.ID;
+        parentId = Model.ParentID;
+        title = Model.Title;
+        alias = Model.Alias;
+        summary = Model.Summary;
+        iconFont = Model.IconFont;
+        backLink = Model.BackLink;
+        pageTemlate = Model.PageTemlate;
+
+
+        languageId = Model.LanguageID;
+        createdBy = Model.CreatedBy;
+        createdDate = Convert.ToString(Model.CreatedDate);
+        if (Model.Enabled == (int)ModelEnum.State.ENABLED)
+        {
+            enabled = "checked";
+        }
+    }
+}
+<div class="row">
+    <div class="col-md-8">
+        <div class="top-pic">
+            <i class="fas fa-file-invoice"></i>&nbsp;<label>Thông tin:</label>
+        </div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> <span>Tiêu đề: </span> @title</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> <span>Mô tả: </span> @summary</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> <span>Trạng thái: </span> @enabled</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> <span>Ngày tạo: </span> @createdDate</div>
+        @{
+            if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+            {
+                <div class="form-group text-right att-data-list">
+                    <a href="@Helper.Page.Navigate.PathDataList()">
+                        @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>
+ 

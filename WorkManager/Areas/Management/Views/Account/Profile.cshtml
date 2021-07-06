@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.Model.Enum;
+
+@model WebCore.Entities.UserResult
+
+@{
+    string id = "";
+    string areaId = "";
+    string loginId = "";
+    string imageFile = "";
+    string fullName = "";
+    string nickname = "";
+    string birthday = "";
+    string email = "";
+    string phone = "";
+    string address = "";
+    string languageId = "";
+    string createdBy = "";
+    string createdDate = "";
+    string isBlock = "Hoạt động";
+    string enabled = "None";
+    if (Model != null)
+    {
+        id = Model.ID;
+        loginId = Model.LoginID;
+        fullName = Model.FullName;
+        nickname = Model.Nickname;
+        birthday = Model.Birthday;
+        email = Model.Email;
+        phone = Model.Phone;
+        address = Model.Address;
+        languageId = Model.LanguageID;
+        createdBy = Model.CreatedBy;
+        createdDate = Model.CreatedDate;
+        imageFile = Helper.File.AttachmentFile.GetFile(Model.ImageFile, true);
+        //
+        if (Model.IsBlock)
+        {
+            isBlock = "Tài khoản bị khóa";
+        }
+        if (Model.Enabled == (int)ModelEnum.State.ENABLED)
+        {
+            enabled = "Tài khoản đã active";
+        }
+        else if (Model.Enabled == (int)ModelEnum.State.DISABLE)
+        {
+            enabled = "Tài khoản chưa được active";
+        }
+    }
+}
+<div class="row">
+    <div class="col-md-4 profile">
+        <div class="profile-card">
+            <div class="profile-header">&nbsp;</div>
+            <div class="profile-body">
+                <div class="image-area">
+                    <img src="@imageFile" />
+                </div>
+                <div class="content-area">
+                    <h3>@fullName</h3>
+                    <p>*******</p>
+                    <p>@birthday</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="top-pic">
+            <i class="fas fa-file-invoice"></i>&nbsp;<label>Thông tin liên hệ:</label>
+        </div>
+        <div class="form-group ">
+            <label class="form-label"><i class="fas fa-check-circle"></i> Địa chỉ email: @email</label>
+        </div>
+        <div class="form-group ">
+            <label class="form-label"><i class="fas fa-check-circle"></i> Số điện thoại: @phone</label>
+        </div>
+        <div class="form-group ">
+            <label class="form-label"><i class="fas fa-check-circle"></i> Địa chỉ: @address</label>
+        </div>
+        <div class="form-group"><label class="form-label"><i class="fas fa-check-circle"></i> Tình trạng: @isBlock</label></div>
+
+        <div class="top-pic">
+            <i class="fas fa-file-invoice"></i>&nbsp;<label>Hoạt động</label>
+        </div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Ngày tạo: @createdDate</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Trạng thái: @enabled</div>
+        @{
+            if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+            {
+                <div class="form-group text-right att-data-list">
+                    <a href="@Helper.Page.Navigate.PathDataList()">
+                        @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+
+</div>

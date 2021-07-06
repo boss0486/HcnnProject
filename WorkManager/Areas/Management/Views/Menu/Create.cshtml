@@ -1,0 +1,104 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Tiêu đề:</label>
+            <input id="txtTitle" name="txtTitle" maxlength="50" type="text" class="form-control" value="" />
+            <span id="lblTitle" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Mô tả</label>
+            <textarea id="txtSummary" name="txtSummary" class="form-control"></textarea>
+            <span id="lblSummary" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Font icon: </label>
+            <input id="txtIconFont" name="txtIconFont" maxlength="255" type="text" class="form-control" value="" />
+            <span id="lblIconFont" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Liên kết: </label>
+            <input id="txtBackLink" name="txtBackLink" maxlength="255" type="text" class="form-control" value="" />
+            <span id="lblBackLink" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Sắp xếp:</label>
+            <select id="ddlOrder" name="ddlOrder" class="form-control show-tick" data-live-search="true">
+                <option value="0">-@Helper.Language.Resource.Label.Option-</option>
+                @Html.Raw(ModelService.DDLMenuSort(-1))
+            </select>
+            <span id="lblOrder" class="message msg-box"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Trang tĩnh:</label>
+            <select id="ddlStaticPage" name="ddlStaticPage" class="form-control show-tick" data-live-search="true" data-enabled="true">
+                <option value="">-@Helper.Language.Resource.Label.Option-</option>
+                @Html.Raw(MenuService.DDLStaticPage(string.Empty))
+            </select>
+            <span id="lblPageTemlate" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Danh mục</label>
+            <div class="vetical-menu" style="height: 299px;">
+                <ul id="SidebarCategory" class="sidebar-menu"></ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Link từ trang:</label>
+            <select id="ddlPage" name="ddlPage" class="form-control show-tick" data-live-search="true">
+                <option value="0">-@Helper.Language.Resource.Label.Option-</option>
+            </select>
+            <span id="lblOrder" class="message msg-box"></span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Trình đơn:</label>
+            <div class="vetical-menu" style="height: 299px;">
+                <ul id="SidebarMenu" class="sidebar-menu"></ul>
+            </div>
+            <span id="lblMenuID" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">&nbsp;</label>
+            <div class="active-line">
+                <input id="cbxActive" name="cbxActive" type="checkbox" class="filled-in" checked />
+                <label for="cbxActive">Kích hoạt</label>
+                <span id="lblActive" class="message msg-box"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- button acction -->
+<div class="form-group text-right">
+    <button id="btnReset" class="btn btn-danger" type="reset">@Helper.Language.Resource.Label.BtnReset</button>
+    <button id="btnCreate" class="btn btn-primary" type="button">@Helper.Language.Resource.Label.BtnCreate</button>
+</div>
+<hr />
+@{
+    if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+    {
+        <div class="form-group text-right att-data-list">
+            <a href="@Helper.Page.Navigate.PathDataList()">
+                @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    }
+}
+@section scripts{
+    <script src="~/Areas/Management/_script/app-menu.js"></script>
+    <script type="text/javascript">
+        AppMenuController.GetCategory();
+        $(document).on('change', '#SidebarMenu input[type="checkbox"]', function () {
+            $('#SidebarMenu input[type="checkbox"]').not(this).prop('checked', false);
+        });
+    </script>
+}

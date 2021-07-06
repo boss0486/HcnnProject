@@ -1,0 +1,134 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+<div class="row mgb-20" style="">
+    <div class="col-md-5">
+        <div class="form-group">
+            <label class="form-label">Công việc:</label>
+            <select id="ddlWork" name="ddlWork" class="form-control show-tick" data-live-search="true">
+                <option value="">-@Helper.Language.Resource.Label.Option-</option>
+                @Html.Raw(WorkService.DDLWorkAssignCategory(""))
+            </select>
+            <span id="lblWork" class="message msg-box"></span>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group">
+            <label class="form-label">Bộ phận tiếp nhận:</label>
+            <select id="ddlAssign" name="ddlAssign" class="form-control show-tick" data-live-search="true">
+                <option value="">-@Helper.Language.Resource.Label.Option-</option>
+                @Html.Raw(WorkService.DDLWorkAssign(""))
+            </select>
+            <span id="lblAssign" class="message msg-box"></span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="form-label">&nbsp;</label>
+            <button id="btnAssignModel" class="btn btn-primary w-100" type="button">Giao việc</button>
+        </div>
+    </div>
+
+</div>
+<div class="form-group">
+    <button id="btnWorkAddModal" class="btn btn-success" type="button">Thêm</button>
+</div>
+<div class="table-responsive">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="tbcol-id">#&nbsp;</th>
+                <th class="tbcol-none">Tên công việc</th>
+                <th class="tbcol-none">Bộ phận tiếp nhận</th>
+                <th class="tbcol-date">Ngày thực hiện</th>
+                <th class="tbcol-date">Ngày kết thúc</th>
+                <th class="tbcol-action">
+                    ACT
+                </th>
+            </tr>
+        </thead>
+        <tbody id="TblData"></tbody>
+    </table>
+</div>
+<div id="Pagination"></div>
+<!-- button acction -->
+<hr />
+<!-- Modal -->
+<div class="modal fade" id="assignModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="assignModallLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="margin-bottom: 15px;">
+                <h5 class="modal-title" id="assignModallLabel">Giao việc cho: Phòng kỹ thuật</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Bộ phận tiếp nhận:</label>
+                    <select id="modDdlAssign" name="modDdlAssign" class="form-control show-tick" data-live-search="true">
+                        <option value="">-@Helper.Language.Resource.Label.Option-</option>
+                        @Html.Raw(WorkService.DDLWorkAssign(""))
+                    </select>
+                    <span id="lblAssign" class="message msg-box"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tên công việc:</label>
+                    <input id="txtTitle" name="txtTitle" maxlength="255" type="text" class="form-control" value="Công việc 01" />
+                    <span id="lblTitle" class="message msg-box"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">@Helper.Language.Resource.Label.HtmlText:</label>
+                    <textarea id="txtContent" name="txtContent" class="form-control default">Công việc 01</textarea>
+                    <span id="lblContent" class="message msg-box"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Ngày thực hiện:</label>
+                            <input id="txtExecuteDate" name="txtExecuteDate" data-date="true" maxlength="10" type="text" class="form-control" value="29-06-2021" />
+                            <span id="lblExecuteDate" class="message msg-box"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Ngày hoàn thiện:</label>
+                            <input id="txtDeadline" name="txtDeadline" data-date="true" maxlength="10" type="text" class="form-control" value="29-07-2021" />
+                            <span id="lblDeadline" class="message msg-box"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button id="btnAssignSave" type="button" class="btn btn-primary">Giao việc</button>
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+    {
+        <div class="form-group text-right att-data-list">
+            <a href="@Helper.Page.Navigate.PathDataList()">
+                Công việc <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    }
+}
+@section scripts{
+    <script src="~/Areas/Management/_script/app-work.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("select#ddlWork")[0].selectedIndex = 1;
+            $("select#ddlWork").selectpicker('refresh');
+            $("select#ddlWork").change();
+        });
+    </script>
+}

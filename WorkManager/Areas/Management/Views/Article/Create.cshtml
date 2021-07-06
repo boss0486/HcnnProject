@@ -1,0 +1,114 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="form-group">
+            <label class="form-label">@Helper.Language.Resource.Label.Title</label>
+            <input id="txtTitle" name="txtTitle" maxlength="80" type="text" class="form-control" />
+            <span id="lblTitle" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">@Helper.Language.Resource.Label.Summary</label>
+            <textarea id="txtSummary" name="txtSummary" class="form-control default"></textarea>
+            <span id="lblSummary" class="message msg-box"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="form-label">Nhóm tin:</label>
+                    <select id="ddlCategoryID" name="ddlCategoryID" class="form-control show-tick" data-live-search="true">
+                        <option value="">-@Helper.Language.Resource.Label.Option-</option> 
+                    </select>
+                    <span id="lblCategory" class="message msg-box"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="form-label">Tổng view:</label>
+                    <input id="txtViewTotal" name="txtViewTotal" maxlength="255" type="text" class="form-control" value="0" />
+                    <span id="lblViewTotal" class="message msg-box"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="form-label">Ngày đăng:</label>
+                    <input id="txtViewDate" name="txtViewDate" data-date="true" maxlength="10" type="text" class="form-control" />
+                    <span id="lblViewDate" class="message msg-box"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">@Helper.Language.Resource.Label.HtmlText:</label>
+            <textarea class="HtmlEditors" id="txtHtmlText" name="txtHtmlText" style="width:100%; min-height:500px;"></textarea>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group ">
+            <label class="form-label">@Helper.Language.Resource.Label.Photo:</label>
+            <div class="text-center new-box-preview" style="background:#CCC; padding:30px 0px; height:280px">
+                <img data-id="3ec12e4e-6595-4dea-83ca-a1d3d00e3347" src="/files/upload/2021/4/3ec12e4e-6595-4dea-83ca-a1d3d00e3347.jpg" class="img-responsive" style="max-height:100%; margin:auto;" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Danh mục</label>
+            <div class="vetical-menu" style="height: 324px;">
+                <ul id="MenuControler" class="sidebar-menu">
+                    @Html.Raw(MenuService.GetMenuForCategory("", "Article", false))
+                </ul>
+            </div>
+            <span id="lblMenuID" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <div class="panel-active">
+                <label class="form-label">&nbsp;</label>
+                <input id="cbxActive" name="cbxActive" type="checkbox" class="filled-in" checked />
+                <label for="cbxActive">Kích hoạt</label>
+                <span id="lblActive" class="message msg-box"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- button acction -->
+<div class="form-group text-right">
+    <button id="btnReset" class="btn btn-danger" type="reset">@Helper.Language.Resource.Label.BtnReset</button>
+    <button id="btnCreate" class="btn btn-primary" type="button">@Helper.Language.Resource.Label.BtnCreate</button>
+</div>
+<hr />
+@{
+    if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+    {
+        <div class="form-group text-right att-data-list">
+            <a href="@Helper.Page.Navigate.PathDataList()">
+                @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    }
+}
+
+@section scripts{
+    <script src="~/Areas/Management/_script/article.js"></script>
+    <script type="text/javascript">
+        $().fileManage({
+            test: "111",
+        });
+
+        $(document).on("click", ".new-box-preview", function () {
+            $(this).fileFinder({
+                fileType: fmEnum.fileType.Alone,
+                selected: [$('.new-box-preview').find('img').data('id')],
+                content: $('.new-box-preview'),
+            });
+        });
+        //
+        $(document).on('change', '#MenuControler input[type="checkbox"]', function () {
+            $('#MenuControler input[type="checkbox"]').not(this).prop('checked', false);
+        });
+    </script>
+}
+

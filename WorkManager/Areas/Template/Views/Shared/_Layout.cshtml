@@ -1,0 +1,130 @@
+﻿@using Helper.Language;
+@using Helper.TimeData;
+@using WebCore.Services
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title </title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    @Styles.Render("~/library/css")
+    @Scripts.Render("~/library/jquery")
+    @Styles.Render("~/manage/css")
+    @RenderSection("styles", required: false)
+    @{
+       
+        // Get language in client
+        string lgName = Helper.Language.LanguageCode.Vietnamese.Name;
+        string lgCode = Helper.Language.LanguageCode.Vietnamese.ID;
+        Helper.Security.Cookies.SetCookiForLanguage(lgName, lgCode);
+    }
+    @{
+        string currController = Helper.Page.MetaSEO.ControllerText;
+        string currAction = Helper.Page.MetaSEO.ActionText;
+        string userId = Helper.Current.UserLogin.IdentifierID;
+    }
+    <script src="~/Areas/Management/chat/jquery.signalR-2.4.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Areas/Management/chat/chat-message.js"></script>
+</head>
+<body class="theme-blue" data-id="@Helper.Current.UserLogin.IdentifierID">
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    @Html.Partial("~/Areas/Template/Views/_ViewHeader.cshtml", null)
+    @Html.Partial("~/Areas/Template/Views/_ViewChatSidebar.cshtml", null)
+
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar11" class="sidebar">
+            <!-- User Info -->
+            @{
+                string imgLogin = "1";
+                string name = "1";
+                string account = "1";
+                var login = Helper.Current.UserLogin.LoginInFor();
+                if (login != null)
+                {
+                    account = login.NickName;
+                    if (string.IsNullOrWhiteSpace(account))
+                    {
+                        account = Helper.Current.UserLogin.LoginID;
+                    }
+                    imgLogin = Helper.File.AttachmentFile.GetFile(login.ImageFile, true);
+                    name = login.FullName;
+                }
+            }
+            <div class="user-info dropdown">
+                <div class="icon image hover-expand-effect">
+                    <img src="@imgLogin" width="48" height="48" alt="@name" />
+                    <i class="fas fa-circle status"></i>
+                </div>
+                <div class="content">
+                    <div class="text">@account</div>
+                    <div class="text text-sub">@name</div>
+                </div>
+                <div class="btn-group user-helper-dropdown">
+                    <i class="fas fa-chevron-circle-down" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></i>
+                    <ul class="dropdown-menu pull-right">
+                        <li style="border-bottom:solid 1px #eee;"><a a href="javascript:void(0);" class="waves-effect waves-block"><i class="fas fa-info-circle"></i>&nbsp; Thông tin</a></li>
+                        <li style="border-bottom:solid 1px #eee;"><a a href="javascript:void(0);" class="waves-effect waves-block"><i class="fas fa-cog"></i>&nbsp; Cài đặt</a></li>
+                        <li style="border-bottom:solid 1px #eee;"><a a href="javascript:void(0);" class="waves-effect waves-block"><i class="fas fa-cogs"></i>&nbsp; Mật khẩu</a></li>
+                        <li style=""><a a href="javascript:Logout();" class="waves-effect waves-block"><i class="fas fa-sign-out-alt"></i>&nbsp; Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- #User Info -->
+            <!-- Menu -->
+            @Html.Partial("~/Areas/Template/Views/_ViewMenuLeft.cshtml", null)
+            <!-- #Menu -->
+            <!-- Footer -->
+            @Html.Partial("~/Areas/Template/Views/_ViewFooter.cshtml", null)
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+        <!-- Right Sidebar -->
+        @Html.Partial("~/Areas/Template/Views/_ViewRightSidebar.cshtml", null)
+        <!-- #END# Right Sidebar -->
+    </section>
+    <section class="content main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-md-push-6">
+                    <div class="row">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="col-md-6 col-md-pull-6">
+                    <div class="block-header">
+                        <h2><i class="fas fa-ellipsis-v"></i> @Helper.Page.MetaSEO.SiteMap</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid form-group">
+            <span style="position: absolute;right: 10px;bottom: 15px;color: #2196F3;">
+                GMT: @Helper.Language.LanguagePage.GetLanguageCode @TimeHelper.GetUtcDateTimeTx
+            </span>
+            <hr />
+        </div>
+
+        @try
+        {
+            <div class="container-fluid">
+                @RenderBody()
+                <input id="txtAccessInApplication" type="hidden" value="@Helper.Current.UserLogin.UserRoleInApplication" />
+            </div>
+        }
+        catch (Exception)
+        {
+            @Html.Partial("~/Areas/Template/Views/_ViewNotPageLoadPatial.cshtml", null)
+        }
+    </section>
+    @Scripts.Render("~/library/js")
+    @Scripts.Render("~/manage/js")  
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,92 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@model WebCore.Entities.ProductResult
+
+@{
+    string title = "";
+    string imagePath = ""; ;
+    double price = 0;
+    string madeInText = ""; ;
+    string warrantyText = "";
+    string stateTx = "";
+    string htmlNote = ""; ;
+    string htmlText = "";
+    if (Model != null)
+    {
+        title = Model.Title;
+        imagePath = Model.ImagePath;
+        price = Model.Price;
+        madeInText = Model.MadeInText;
+        warrantyText = Model.WarrantyText;
+        stateTx = Model.StateTx;
+        htmlNote = Model.HtmlNote;
+        htmlText = Model.HtmlText;
+
+    }
+}
+
+<section class="pro-details">
+    <div class="container main-content">
+        <header class="section-header">
+            <h3 class="head-text">Chi tiết</h3>
+        </header>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="img-box">
+                    <img class="img-responsive" src="@Model.ImagePath" alt="@title" />
+                </div>
+
+            </div>
+            <div class="col-md-7">
+                <div class="form-group">
+                    <h1 class="name">@title</h1>
+                </div>
+                <div class="form-group">
+                    <h2 class="price">@price đ</h2>
+                </div>
+                <div class="form-group">
+                    <label class="">Tình trạng:@stateTx</label>
+                </div>
+
+                <div class="form-group">
+                    <label class="">Xuất sứ: @madeInText</label>
+                </div>
+                <div class="form-group">
+                    <label class="">Bảo hành: @warrantyText</label>
+                </div>
+                <div class="form-group">
+                    <label class="">&nbsp;</label>
+                </div>
+                <div class="form-group html-note">
+                    @Html.Raw(htmlNote)
+                </div>
+                <div class="form-group"><button class=" btn-contact btn-danger">Liên hệ đặt hàng</button></div>
+            </div>
+        </div>
+        <div class="form-group mt-5">
+            <h4>Thông tin</h4>
+            @Html.Raw(htmlText)
+        </div>
+        <div class="form-group text-right"><a href="#" data-btnback="true" class=" button-link"><i class="fas fa-arrow-circle-left"></i> Quay lại</a></div>
+    </div>
+</section>
+<section id="portfolio" class="product main-content">
+    <div class="container">
+        <div class="product-carousel">
+            <header class="section-header">
+                <h3 class="head-text">Sản phẩm khác</h3>
+            </header>
+            @Html.Partial("~/Views/_OtherProductSliderPartial.cshtml", new ProductOtherPatial { CategoryID = Model.CategoryID, ID = Model.ID })
+        </div>
+    </div>
+</section>

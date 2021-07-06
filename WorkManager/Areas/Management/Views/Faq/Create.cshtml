@@ -1,0 +1,72 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="form-label">Câu hỏi</label>
+                    <input id="txtTitle" name="txtTitle" maxlength="50" type="text" class="form-control" />
+                    <span id="lblTitle" class="message msg-box"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Giải đáp</label>
+                    <textarea id="txtSummary" name="txtSummary" maxlength="500" class="form-control " style="height: 225px;max-height: 225px;min-height: 225px;"></textarea>
+                    <span id="lblSummary" class="message msg-box"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="form-label">Danh mục</label>
+                    <div class="vetical-menu" style="height: 302px;">
+                        <ul id="MenuControler" class="sidebar-menu">
+                            @Html.Raw(MenuService.GetMenuForCategory("", "Faq"))
+                        </ul>
+                    </div>
+                    <span id="lblMenuID" class="message msg-box"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="panel-active">
+                <label class="form-label">&nbsp;</label>
+                <input id="cbxActive" name="cbxActive" type="checkbox" class="filled-in" checked />
+                <label for="cbxActive">Kích hoạt</label>
+                <span id="lblActive" class="message msg-box"></span>
+            </div>
+        </div>
+        <!-- button acction -->
+        <div class="form-group text-right">
+            <button id="btnReset" class="btn btn-danger" type="reset">@Helper.Language.Resource.Label.BtnReset</button>
+            <button id="btnCreate" class="btn btn-primary" type="button">@Helper.Language.Resource.Label.BtnCreate</button>
+        </div>
+        <hr />
+        @{
+            if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+            {
+                <div class="form-group text-right att-data-list">
+                    <a href="@Helper.Page.Navigate.PathDataList()">
+                        @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Areas/Management/_script/app-faq.js"></script>
+    <script type="text/javascript">
+        $(document).on('change', '#MenuControler input[type="checkbox"]', function () {
+            $('#MenuControler input[type="checkbox"]').not(this).prop('checked', false);
+        });
+    </script>
+}
+

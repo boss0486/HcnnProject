@@ -1,0 +1,100 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="form-group">
+            <label class="form-label">@Helper.Language.Resource.Label.Title</label>
+            <input id="txtTitle" name="txtTitle" maxlength="80" type="text" class="form-control" />
+            <span id="lblTitle" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">@Helper.Language.Resource.Label.Summary</label>
+            <textarea id="txtSummary" name="txtSummary" class="form-control default"></textarea>
+            <span id="lblSummary" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">@Helper.Language.Resource.Label.HtmlText:</label>
+            <textarea class="HtmlEditors" id="txtHtmlText" name="txtHtmlText" style="width:100%;"></textarea>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label class="form-label">Đính kèm(file):</label>
+            <div class="file-preview">
+                <div class="file-preview-footer">
+                    <i id="btnOpenManagerFile" class="far fa-folder" data-ibtn="true"></i><span class="photo-caption-text">... chọn file</span>
+                </div>
+                <div class="container-fuild modal-container-layout" style="height: 218px; overflow:auto">
+                    <div class="pre-view"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Danh mục</label>
+            <div class="vetical-menu" style="height: 247px;">
+                <ul id="MenuControler" class="sidebar-menu">
+                    @Html.Raw(MenuService.GetMenuForCategory("", "Quotation", false))
+                </ul>
+            </div>
+            <span id="lblMenuID" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <div class="panel-active">
+                <label class="form-label">&nbsp;</label>
+                <input id="cbxActive" name="cbxActive" type="checkbox" class="filled-in" checked />
+                <label for="cbxActive">Kích hoạt</label>
+                <span id="lblActive" class="message msg-box"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- button acction -->
+<div class="form-group text-right">
+    <button id="btnReset" class="btn btn-danger" type="reset">@Helper.Language.Resource.Label.BtnReset</button>
+    <button id="btnCreate" class="btn btn-primary" type="button">@Helper.Language.Resource.Label.BtnCreate</button>
+</div>
+<hr />
+@{
+    if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+    {
+        <div class="form-group text-right att-data-list">
+            <a href="@Helper.Page.Navigate.PathDataList()">
+                @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    }
+}
+
+@section scripts{
+    <script src="~/Areas/Management/_script/app-quotation.js"></script>
+    <script type="text/javascript">
+        $().fileManage({});
+        //
+        $(document).on("click", "#btnOpenManagerFile", function () {
+            var selected = [];
+            $(".file-preview .i-list").each((index, item) => {
+                selected.push($(item).data("id"));
+            });
+            //
+            $(this).fileFinder({
+                fileType: fmEnum.fileType.Multi,
+                selected: selected,
+                content: $('.file-preview .pre-view'),
+                isList: true
+
+            });
+        });
+        //
+        $(document).on('change', '#MenuControler input[type="checkbox"]', function () {
+            $('#MenuControler input[type="checkbox"]').not(this).prop('checked', false);
+        });
+            //
+    </script>
+}
+

@@ -1,0 +1,121 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@model WebCore.Entities.UserClientResult
+
+@{
+
+    string userId = "";
+    string loginId = "";
+    string imageFile = "";
+    string fullName = "";
+    string nickname = "";
+    string birthday = "";
+    string email = "";
+    string phone = "";
+    string address = "";
+    string languageId = "";
+    string createdBy = "";
+    string createdDate = "";
+    string blockState = string.Empty;
+    string enabled = string.Empty;
+    //
+    List<string> userRoles = new List<string>();
+    if (Model != null)
+    {
+        userId = Model.ID;
+        loginId = Model.LoginID;
+        fullName = Model.FullName;
+        nickname = Model.Nickname;
+        birthday = Model.Birthday;
+        email = Model.Email;
+        phone = Model.Phone;
+        address = Model.Address;
+        languageId = Model.LanguageID;
+        createdBy = Model.CreatedBy;
+        createdDate = Model.CreatedDate;
+        imageFile = Helper.File.AttachmentFile.GetFile(imageFile, true);
+        blockState = ModelService.ViewAccountState(Model.IsBlock);
+        enabled = Model.EnabledText;
+        //
+        UserRoleService userRoleService = new UserRoleService();
+        userRoles = userRoleService.GetUserRoleByUserID(userId);
+
+    }
+}
+<div class="row profile">
+    <div class="col-md-8">
+        <div class="top-pic">
+            <i class="fas fa-file-invoice"></i>&nbsp;<label>T.tin Hồ sơ:</label>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group text-center infor-container-img">
+                    <img src="@imageFile" class="infor-img img-responsive" />
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group"><i class="fas fa-check-circle"></i> <span>Họ tên: </span>@fullName</div>
+                <div class="form-group"><i class="fas fa-check-circle"></i> <span>Số ĐT: </span>@phone</div>
+                <div class="form-group"><i class="fas fa-check-circle"></i> <span>E-Mail: </span>@email</div>
+                <div class="form-group"><i class="fas fa-check-circle"></i> <span>Ngày sinh: </span>@birthday</div>
+                <div class="form-group"><i class="fas fa-check-circle"></i> <span>Địa chỉ: </span>@address</div>
+            </div>
+        </div>
+        <div class="top-pic m-t-30">
+            <i class="fas fa-file-invoice"></i>&nbsp;<label>T.tin đăng nhập:</label>
+        </div>
+        <div class="form-group"><i class="fas fa-check-circle"></i><span>Tài khoản: </span><span class="account-id">@loginId </span></div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> <span>Mã ID: </span>@userId  </div>
+        <div class="top-pic">
+            <i class="fas fa-file-invoice"></i>&nbsp;<label>Nhóm quyền:</label>
+        </div> 
+        @if (userRoles != null && userRoles.Count() > 0)
+        {
+            int cnt = 1;
+            string strIndex = cnt + "";
+            foreach (var item in userRoles)
+            {
+                if (cnt < 10)
+                {
+                    strIndex = "0" + cnt;
+                }
+                <div class="form-group ">
+                    <i class="fas fa-check-circle"></i> @strIndex: <span>@item</span>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="form-group">
+                <i class="fas fa-check-circle"></i> 01: <span class="red-text">Chưa thiết lập</span>
+            </div>
+        }
+        <div class="top-pic">
+            <i class="fas fa-file-invoice"></i>&nbsp;<label>Hoạt động</label>
+        </div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> <span>Tình trạng: </span>@blockState</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> <span>Trạng thái: </span>@enabled</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> <span>Ngày tạo: </span>@createdDate</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> <span>Người tạo: </span>@createdBy</div>
+        @{
+            if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+            {
+                <div class="form-group text-right att-data-list">
+                    <a href="@Helper.Page.Navigate.PathDataList()">
+                        @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>

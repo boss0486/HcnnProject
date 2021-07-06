@@ -1,0 +1,135 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@model WebCore.Entities.Attachment
+
+@{
+    string id = "";
+    string categoryId = "";
+    string title = "";
+    string languageId = "";
+    string createdBy = "";
+    string createdDate = "";
+    string enabled = "";
+    string sharedAll = "";
+    string ddlUserState = "";
+
+    if (Model != null)
+    {
+        id = Model.ID;
+        categoryId = Model.CategoryID;
+        title = Model.Title;
+        languageId = Model.LanguageID;
+        createdBy = Model.CreatedBy;
+        if (Model.IsShared == (int)AttachmentEnum.IsShared.Everyone)
+        {
+            sharedAll = "checked";
+            ddlUserState = "disabled";
+        }
+    }
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class=" form-group">
+            <label class="form-label">Tài liệu:</label>
+            <div class="input-group">
+                <input type="file" class="form-control" id="inputUploadFile" style="display:none;" />
+                <div class="form-control"><span id="inputFileControl">@title</span></div>
+                <div id="btnOpenFile" class="input-group-addon"><i data-ibtn="true" class="far fa-folder"></i></div>
+            </div>
+            <span id="lblFile" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Tên tài liệu:</label>
+            <input id="txtTitle" name="txtTitle" maxlength="80" type="text" class="form-control" value="@title" />
+            <span id="lblTitle" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Định dạng tài liệu:</label>
+            <div class="form-control" style="cursor:not-allowed; color:#8bc34a">gif, png, bmp, jpeg, jpg, ico | doc, docx, xls, xlsx, pdf | rar, zip</div>
+        </div>
+        <div class=" form-group">
+            <label class="form-label">Chia sẻ tài liệu:</label>
+        </div>
+        <div class="form-group">
+            <div class="active-line">
+                <input id="cbxSharedAll" name="cbxSharedAll" type="checkbox" class="filled-in" @sharedAll />
+                <label for="cbxSharedAll">Tất cả</label>
+                <span id="lblsharedAll" class="message msg-box"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Người được chia sẻ:</label>
+                    <select id="ddlUser" name="ddlUser" class="form-control show-tick" data-live-search="true" multiple data-actions-box="true" title="-chọn-" @ddlUserState>
+                        @Html.Raw(UserService.DDLUserShared(id))
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Quyền chia sẻ:</label>
+                    <select id="ddlPermission" name="ddlPermission" class="form-control show-tick" data-live-search="true" multiple data-actions-box="true" title="-chọn-">
+                        @Html.Raw(AttachmentService.DDLAttachmentPermission(id))
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="form-label">Nhóm tài liệu:</label>
+            <div class="vetical-menu" style="height: 329px;">
+                <ul id="ddlCategory" class="sidebar-menu">@Html.Raw(AttachmentCategoryService.GetAttachmentCategory(categoryId))</ul>
+            </div>
+            <span id="lblCategory" class="message msg-box"></span>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <!-- button acction -->
+        <div class="form-group text-right">
+            <button id="btnReset" class="btn btn-danger" type="reset">@Helper.Language.Resource.Label.BtnReset</button>
+            <button id="btnUpdate" class="btn btn-primary" type="button">Cập nhật</button>
+        </div>
+        <hr />
+        @{
+            if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+            {
+                <div class="form-group text-right att-data-list">
+                    <a href="@Helper.Page.Navigate.PathDataList()">
+                        @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            }
+        }
+        <div class="form-group">
+            <label class="form-label">Lưu ý:</label>
+            <div class="" style=" padding: 15px;border: dotted 1px #ff6a00">
+                <p><i class="far fa-hand-point-right"></i> Tên tài liệu mặc định, sẽ được lấy tự động sau khi chọn tài liệu</p>
+                <p><i class="far fa-hand-point-right"></i> Tài liệu đính kèm dung lượng không vượt quá 1MB</p>
+                <p><i class="far fa-hand-point-right"></i> Tài liệu tải lên yêu cầu cần đúng định dạng sau:</p>
+                <p><i class="fas fa-check-circle"></i> 1, Hình ảnh: gif, png, bmp, jpeg, jpg, ico</p>
+                <p><i class="fas fa-check-circle"></i> 2, Tệp nén: rar, zip</p>
+                <p><i class="fas fa-check-circle"></i> 3, Tài liệu soạn thảo: doc, docx, xls, xlsx, pdf</p>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="txtID" type="hidden" value="@id" />
+@section scripts{
+    <script src="~/Areas/Management/_script/app-attachment.js"></script>
+}

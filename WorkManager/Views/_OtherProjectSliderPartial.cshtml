@@ -1,0 +1,128 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+@using Helper.Language;
+@using Helper.TimeData;
+@{
+    string title = string.Empty;
+    string summary = string.Empty;
+    string address = string.Empty;
+    string workTime = string.Empty;
+    string hotline = string.Empty;
+    string tel = string.Empty;
+    string email = string.Empty;
+    string gmaps = string.Empty;
+    List<WebCore.Entities.SocialNetwork> socialNetworks = SocialNetworkService.GetSocialNetworkForHome("");
+    WebCore.Entities.Site site = WebCore.Services.SiteService.GetSiteForHome("");
+    if (site != null)
+    {
+        title = site.Title;
+        summary = site.Summary;
+        address = site.Address;
+        workTime = site.WorkTime;
+        hotline = site.Phone;
+        tel = site.Tel;
+        email = site.Email;
+        gmaps = site.Gmaps;
+    }
+}
+@model WebCore.Entities.ProjectOtherPatial
+
+@{
+    string categoryId = string.Empty;
+    string id = string.Empty;
+    if (Model != null)
+    {
+        id = Model.ID;
+        categoryId = Model.CategoryID;
+    }
+    List<ProjectHome> projects = ProjectService.GetProjectOther(categoryId, id);
+
+}
+
+<div class="row portfolio-container">
+
+    @{
+        if (projects.Count() > 0)
+        {
+            foreach (var item in projects)
+            {
+                <div class="col-md-3 portfolio-item filter-app wow fadeInUp">
+                    <div class="portfolio-wrap">
+                        <figure>
+                            <img class="img-fluid" src="@item.ImagePath" alt="@item.Title" />
+                            <img src="@item.ImagePath" class="img-fluid" alt="@item.Title">
+                            <a href="@item.ImagePath" data-lightbox="portfolio" data-title="@item.Title" class="link-preview" title="@item.Title"><i class="ion ion-eye"></i></a>
+                            <a href="/du-an/chi-tiet/@item.Alias" class="link-details" title="Chi tiết"><i class="ion ion-android-open"></i></a>
+                        </figure>
+                        <div class="portfolio-info">
+                            <h2 class="portfolio-title"><a href="/du-an/chi-tiet/@item.Alias">@item.Title </a></h2>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+
+</div> 
+@{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#OwlProject').owlCarousel({
+                margin: 20,
+                autoplay: true,
+                autoplayTimeout: 2000,
+                responsiveClass: true,
+                navText: ["<i class='fa fa-angle-left' aria-hidden='true'></i>", "<i class='fa fa-angle-right' aria-hidden='true'></i>"],
+                navContainerClass: "owl-nav-service",
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    420: {
+                        items: 1,
+                        nav: false
+                    },
+                    768: {
+                        items: 2,
+                        nav: true,
+                        //loop: true
+                    },
+                    1024: {
+                        items: 3,
+                        nav: true,
+                        //loop: true
+                    },
+                    1366: {
+                        items: 4,
+                        nav: true,
+                        //loop: true
+                    }
+                }
+                //    loop: true,
+                //margin: 10,
+                //autoplay: true,
+                //autoplayTimeout: 2000,
+                //autoplayHoverPause: true,
+                //// Most important owl features
+                //items: 4,
+                //itemsDesktop: [1199, 4],
+                //itemsDesktopSmall: [980, 3],
+                //itemsTablet: [768, 2],
+                //itemsTabletSmall: false,
+                //itemsMobile: [479, 1],
+                //singleItem: false,
+
+                //// Navigation
+                //navigation: false,
+                //navigationText: ["prev", "next"],
+                //rewindNav: true,
+                //scrollPerPage: false,
+            });
+        });
+
+    </script>
+}

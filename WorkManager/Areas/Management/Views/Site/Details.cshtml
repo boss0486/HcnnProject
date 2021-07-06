@@ -1,0 +1,104 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@model WebCore.Entities.SiteResult
+
+@{ 
+    string id = "";
+    string title = "";
+    string summary = "";
+    string languageId = "";
+    string createdBy = "";
+    string createdDate = "";
+    string iconFile = string.Empty;
+    string iconPath = string.Empty;
+    string imageFile = string.Empty;
+    string imagePath = string.Empty;
+    string email = string.Empty;
+    string fax = string.Empty;
+    string phone = string.Empty;
+    string tel = string.Empty;
+    string workTime = string.Empty;
+    string address = string.Empty;
+    string gmaps = string.Empty;
+    string googleAnalytic = string.Empty;
+    string fanpage = string.Empty;
+    string enabled = string.Empty;
+
+    if (Model != null)
+    {
+        id = Model.ID;
+        title = Model.Title;
+        summary = Model.Summary;
+        iconFile = Model.IconFile;
+        iconPath = Helper.File.AttachmentFile.GetFile(iconFile, true);
+        imageFile = Model.IconFile;
+        imagePath = Model.ImagePath;
+        email = Model.Email;
+        fax = Model.Fax;
+        phone = Model.Phone;
+        tel = Model.Tel;
+        workTime = Model.WorkTime;
+        address = Model.Address;
+        languageId = Model.LanguageID;
+        createdBy = Model.CreatedBy;
+        createdDate = Model.CreatedDate;
+        enabled = Model.EnabledText;
+    }
+}
+<div class="row">
+    <div class="col-md-8">
+        <div class="top-pic">
+            <i class="fas fa-file-invoice"></i>&nbsp;<label>Thông tin:</label>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">Logo:</label>
+                <div class="form-group ">
+                    <div class="text-center" style="background:#CCC; padding:30px 0px; height:222px">
+                        <img src="@imagePath" class="img-responsive" style="max-height:100%; margin:auto;" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Icon(.ico: size <= 32x32):</label>
+                <div class="form-group ">
+                    <div class="text-center" style="background:#CCC; padding:30px 0px; height:222px">
+                        <img src="@iconPath" class="img-responsive" style="max-height:100%; margin:auto;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Tiêu đề: @title</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Mô tả: @summary</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Số điện thoại: @tel</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Hotline: @phone</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Email: @email</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Fax: @fax</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Thời gian làm việc: @workTime</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Địa chỉ: @address</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Trạng thái: @enabled</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Ngày tạo: @createdDate</div>
+        <hr />
+        @{
+            if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+            {
+                <div class="form-group text-right att-data-list">
+                    <a href="@Helper.Page.Navigate.PathDataList()">
+                        @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>
+

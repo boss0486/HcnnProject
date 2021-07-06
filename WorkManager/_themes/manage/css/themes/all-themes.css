@@ -1,0 +1,127 @@
+﻿/*theme-item*************************************************************************************************************************************************/
+
+.theme-blue {
+}
+
+    .theme-blue .navbar {
+        background-color: #2196F3;
+    }
+
+    .theme-blue .navbar-brand {
+        color: #fff;
+        background: #1870b5;
+    }
+
+    .theme-blue .navbar-header {
+        color: #fff;
+        background: #1870b5;
+    }
+
+    .theme-blue .navbar-brand:hover {
+        color: #fff;
+    }
+
+    .theme-blue .nav > li > a {
+        color: #fff;
+    }
+
+        .theme-blue .nav > li > a:hover {
+            background-color: transparent;
+        }
+
+        .theme-blue .nav > li > a:focus {
+            background-color: transparent;
+        }
+
+    .theme-blue .nav .open > a {
+        background-color: transparent;
+    }
+
+        .theme-blue .nav .open > a:hover {
+            background-color: transparent;
+        }
+
+        .theme-blue .nav .open > a:focus {
+            background-color: transparent;
+        }
+
+    .theme-blue .bars {
+        color: #fff;
+    }
+
+    .theme-blue .sidebar .menu .list li.active {
+        background-color: transparent;
+    }
+
+        .theme-blue .sidebar .menu .list li.active > :first-child i, .theme-blue .sidebar .menu .list li.active > :first-child span {
+            color: #2196F3;
+        }
+
+    .theme-blue .sidebar .menu .list .toggled {
+        background-color: transparent;
+    }
+
+    .theme-blue .sidebar .menu .list a.active {
+        color: #2196F3;
+    }
+
+    .theme-blue .sidebar .menu .list .ml-menu {
+        background-color: transparent;
+    }
+
+    .theme-blue .sidebar .legal {
+        background-color: #fff;
+    }
+
+        .theme-blue .sidebar .legal .copyright a {
+            color: #2196F3 !important;
+        }
+
+    .theme-blue .content .top-pic {
+        border-color: rgba(33, 150, 243, 0.75);
+    }
+
+        .theme-blue .content .top-pic, .theme-blue .content .top-pic label, .theme-blue .content .top-pic i {
+            color: #2196F3;
+        }
+
+    .theme-blue .content .block-header, .theme-blue .content h2 {
+        color: #1870b5;
+    }
+
+    .theme-blue .sidebar .menu .list a span i {
+        color: #2196F3;
+    }
+
+    .theme-blue [data-head="true"] .input-group .input-group-addon, .theme-blue [data-head="true"] .input-group .form-control, .theme-blue [data-head="true"] .input-group .-icons {
+        border-color: #ABDED4;
+    }
+
+    .theme-blue [data-head="true"] .input-group .input-group-addon {
+        background-color: #d6ebe7;
+    }
+
+    .theme-blue [data-head="true"] [data-toggle="dropdown"] {
+        border-color: #ABDED4;
+    }
+
+    .theme-blue [data-head="true"] .btn-default:active, .theme-blue [data-head="true"] .btn-default.active, .theme-blue [data-head="true"] .open > .dropdown-toggle.btn-default {
+        color: #333;
+        background-color: #FFF;
+        background-image: none;
+        border-color: #ABDED4;
+    }
+/*theme-item*************************************************************************************************************************************************/
+.jconfirm .jconfirm-box .jconfirm-buttons button {
+    border-radius: 2px;
+    font-size: unset;
+}
+
+.jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons button, .jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons button {
+    font-size: unset;
+    font-weight: unset;
+}
+
+.jconfirm.jconfirm-white .jconfirm-box, .jconfirm.jconfirm-light .jconfirm-box {
+    border-radius: 2px;
+}

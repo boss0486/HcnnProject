@@ -1,0 +1,45 @@
+﻿.article table td p {
+    padding: 0;
+    margin: 0;
+}
+
+.article table td .title {
+    color: #00A9C1;
+    white-space: nowrap;
+    font-weight: 400;
+}
+.article table td .code {
+    color: #FF006E;
+    white-space: nowrap;
+    font-weight: 400;
+}
+
+.article table td .content {
+    color: #676262;
+    font-size: 12px;
+    height: 38px;
+    line-height: 1.35;
+}
+
+.article table td .date {
+    color: #676262;
+}
+
+    .article table td .date i {
+        color: #FF006E;
+    }
+
+table td .price {
+    color: #FF006E;
+}
+
+table td .price-listed {
+    color: #3BDE86;
+}
+
+
+
+.article table img {
+    max-width: 50px;
+    max-height: 30px;
+}

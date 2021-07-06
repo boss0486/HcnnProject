@@ -1,0 +1,214 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <link href="/favicon.ico?v=11001" rel="icon">
+    <style>
+         
+        .dropdown-toggle::after {
+            transition: transform 0.15s linear;
+        }
+
+        .show.dropdown .dropdown-toggle::after {
+            transform: translateY(3px);
+        }
+
+        .dropdown-menu {
+            margin-top: 0;
+        }
+    </style>
+    @Styles.Render("~/library/css")
+    @Styles.Render("~/fontend/css")
+    @RenderSection("styles", required: false)
+
+    @Scripts.Render("~/library/jquery")
+
+</head>
+<body>
+    @Html.Partial("~/Views/_HeaderPartial.cshtml", null)
+
+    @RenderBody()
+
+
+
+    @Html.Partial("~/Views/_FooterPartial.cshtml", null)
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    <div id="preloader"></div>
+    <!-- JavaScript Libraries -->
+    @Scripts.Render("~/library/js")
+    @Scripts.Render("~/fontend/js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Listen to owl events:
+            var _owlservice = $('#OwlService');
+            _owlservice.owlCarousel({
+                margin: 20,
+                autoplay: true,
+                autoplayTimeout: 2000,
+                responsiveClass: true,
+                navText: ["<i class='fa fa-angle-left' aria-hidden='true'></i>", "<i class='fa fa-angle-right' aria-hidden='true'></i>"],
+                navContainerClass: "owl-nav-service",
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    420: {
+                        items: 1,
+                        nav: false
+                    },
+                    768: {
+                        items: 2,
+                        nav: true,
+                        loop: true
+                    },
+                    1024: {
+                        items: 3,
+                        nav: true,
+                        loop: true
+                    },
+                    1366: {
+                        items: 4,
+                        nav: true,
+                        loop: true
+                    }
+                }
+                //    loop: true,
+                //margin: 10,
+                //autoplay: true,
+                //autoplayTimeout: 2000,
+                //autoplayHoverPause: true,
+                //// Most important owl features
+                //items: 4,
+                //itemsDesktop: [1199, 4],
+                //itemsDesktopSmall: [980, 3],
+                //itemsTablet: [768, 2],
+                //itemsTabletSmall: false,
+                //itemsMobile: [479, 1],
+                //singleItem: false,
+
+                //// Navigation
+                //navigation: false,
+                //navigationText: ["prev", "next"],
+                //rewindNav: true,
+                //scrollPerPage: false,
+            });
+            //
+            var _owlcustomer = $('#OwlCustomer');
+            _owlcustomer.owlCarousel({
+                margin: 10,
+                autoplay: true,
+                autoplayTimeout: 2000,
+                responsiveClass: true,
+                navText: ["<i class='fa fa-angle-left' aria-hidden='true'></i>", "<i class='fa fa-angle-right' aria-hidden='true'></i>"],
+                navContainer: false,
+                navContainerClass: "owl-nav-customer",
+                responsive: {
+                    0: {
+                        items: 2,
+                        nav: true,
+                        loop: true
+                    },
+                    420: {
+                        items: 3,
+                        nav: true,
+                        loop: true
+                    },
+                    768: {
+                        items: 4,
+                        nav: true,
+                        loop: true
+                    },
+                    1024: {
+                        items: 5,
+                        nav: true,
+                        loop: true
+                    },
+                    1366: {
+                        items: 6,
+                        nav: true,
+                        loop: true
+                    }
+                }
+            });
+
+        });
+
+    </script>
+    <script type="text/javascript">
+        const $dropdown = $(".dropdown");
+        const $dropdownToggle = $(".dropdown-toggle");
+        const $dropdownMenu = $(".dropdown-menu");
+        const showClass = "show";
+
+        $(window).on("load resize", function () {
+            if (this.matchMedia("(min-width: 768px)").matches) {
+                $dropdown.hover(
+                    function () {
+                        const $this = $(this);
+                        $this.addClass(showClass);
+                        $this.find($dropdownToggle).attr("aria-expanded", "true");
+                        $this.find($dropdownMenu).addClass(showClass);
+                    },
+                    function () {
+                        const $this = $(this);
+                        $this.removeClass(showClass);
+                        $this.find($dropdownToggle).attr("aria-expanded", "false");
+                        $this.find($dropdownMenu).removeClass(showClass);
+                    }
+                );
+            } else {
+                $dropdown.off("mouseenter mouseleave");
+            }
+        });
+    </script>
+    @*<script type="text/javascript">
+
+            window.onload = function () {
+                if (window.jQuery) {
+                    $(document).ready(function () {
+                        $("body").append("<div class='overlay'></div>");
+                        //$(".navbar-toggle, .navbar-toggler").on("click", function () {
+                        //    $(".sideMenu").addClass($(".sidebarNavigation").attr("data-sidebarClass"));
+                        //    $(".sideMenu, .overlay").toggleClass("open");
+                        //    $(".overlay").on("click", function () {
+                        //        $(this).removeClass("open"); $(".sideMenu").removeClass("open")
+                        //    })
+                        //});
+                        $("body").on("click", ".sideMenu.open .nav-item", function () {
+                            if (!$(this).hasClass("dropdown")) {
+                                $(".sideMenu, .overlay").toggleClass("open")
+                            }
+                        });
+                        $(window).resize(function () {
+                            if ($(".navbar-toggler").is(":hidden")) {
+                                $(".sideMenu, .overlay").hide()
+                            } else {
+                                $(".sideMenu, .overlay").show()
+                            }
+                        })
+                    })
+                }
+                else {
+                    console.log("sidebarNavigation Requires jQuery")
+                }
+            }
+        </script>*@
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

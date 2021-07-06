@@ -1,0 +1,137 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+@using Helper.Language;
+@using Helper.TimeData;
+@{
+    string title = string.Empty;
+    string summary = string.Empty;
+    string address = string.Empty;
+    string workTime = string.Empty;
+    string hotline = string.Empty;
+    string tel = string.Empty;
+    string email = string.Empty;
+    string gmaps = string.Empty;
+    List<WebCore.Entities.SocialNetwork> socialNetworks = SocialNetworkService.GetSocialNetworkForHome("");
+    WebCore.Entities.SiteResult site = WebCore.Services.SiteService.GetSiteForHome();
+    if (site != null)
+    {
+        title = site.Title;
+        summary = site.Summary;
+        address = site.Address;
+        workTime = site.WorkTime;
+        hotline = site.Phone;
+        tel = site.Tel;
+        email = site.Email;
+        gmaps = site.Gmaps;
+    }
+}
+@model WebCore.Entities.ProductOtherPatial
+
+@{
+    string categoryId = string.Empty;
+    string id = string.Empty;
+    if (Model != null)
+    {
+        id = Model.ID;
+        categoryId = Model.CategoryID;
+    }
+    List<ProductHome> products = ProductService.GetProductOther(categoryId, id);
+
+}
+
+<div class="form-group product " style="position:relative;">
+    <div class="owl-nav-service text-right"></div>
+    <div id="OwlProduct" class="owl-carousel">
+        @{
+            foreach (var item in products)
+            {
+                <div class="item-col">
+                    <div class="img">
+                        <a href="/san-pham/chi-tiet/@item.Alias"><img src="@item.ImagePath" alt="@item.Title" class="img-fluid" /></a>
+                    </div>
+                    <a href="/san-pham/chi-tiet/@item.Alias"><h2 class="title">@item.Title</h2></a>
+
+                    <div class="price text-center">
+                        <span class="price-new">@Helper.Page.Library.FormatCurrency(item.Price) đ</span>
+                        @*<span class="price-old">1000000 @item.PriceListed đ</span>*@
+                    </div>
+                    <div class="product-bottom">
+                        <div class="v-control">
+                            <i class="fa fa-star actived"></i>
+                            <i class="fa fa-star actived"></i>
+                            <i class="fa fa-star actived"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="v-prepend">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+@{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#OwlProduct').owlCarousel({
+                margin: 20,
+                autoplay: true,
+                autoplayTimeout: 2000,
+                responsiveClass: true,
+                navText: ["<i class='fa fa-angle-left' aria-hidden='true'></i>", "<i class='fa fa-angle-right' aria-hidden='true'></i>"],
+                navContainerClass: "owl-nav-service",
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    420: {
+                        items: 1,
+                        nav: false
+                    },
+                    768: {
+                        items: 2,
+                        nav: true,
+                        //loop: true
+                    },
+                    1024: {
+                        items: 3,
+                        nav: true,
+                        //loop: true
+                    },
+                    1366: {
+                        items: 4,
+                        nav: true,
+                        //loop: true
+                    }
+                }
+                //    loop: true,
+                //margin: 10,
+                //autoplay: true,
+                //autoplayTimeout: 2000,
+                //autoplayHoverPause: true,
+                //// Most important owl features
+                //items: 4,
+                //itemsDesktop: [1199, 4],
+                //itemsDesktopSmall: [980, 3],
+                //itemsTablet: [768, 2],
+                //itemsTabletSmall: false,
+                //itemsMobile: [479, 1],
+                //singleItem: false,
+
+                //// Navigation
+                //navigation: false,
+                //navigationText: ["prev", "next"],
+                //rewindNav: true,
+                //scrollPerPage: false,
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,116 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@model WebCore.Entities.WorkStack
+
+@{
+    string id = "";
+    string title = "";
+    string htmlText = "";
+    string deadline = "";
+    string executeDate = "";
+    string workId = "";
+    string state = "";
+
+    if (Model != null)
+    {
+        id = Model.ID;
+        title = Model.Title;
+        htmlText = Model.HtmlText;
+        workId = Model.WorkID;
+        if (Model.Deadline != null)
+        {
+            deadline = Model.Deadline.ToString("dd-MM-yyyy");
+            executeDate = Model.ExecuteDate.ToString("dd-MM-yyyy");
+        }
+        if (Model.State)
+        {
+            state = "checked";
+        }
+    }
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group">
+            <label class="form-label">Tên tác vụ:</label>
+            <input id="txtTitle" name="txtTitle" maxlength="50" type="text" class="form-control" value="@title" />
+            <span id="lblTitle" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">@Helper.Language.Resource.Label.HtmlText:</label>
+            <textarea class="HtmlEditor" id="txtContent" name="txtContent" style="width:100%; min-height:250px;">@htmlText</textarea>
+            <span id="lblContent" class="message msg-box"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="form-label">Công việc:</label>
+                    <select id="ddlWork" name="ddlWork" class="form-control show-tick" data-live-search="true">
+                        <option value="">-chọn-</option>
+                        @Html.Raw(WorkService.DDLWorkOfMember(workId))
+                    </select>
+                    <span id="lblWork" class="message msg-box"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="form-label">&nbsp;</label>
+                    <div class="active-line">
+                        <input id="cbxState" name="cbxState" type="checkbox" class="filled-in" @state />
+                        <label for="cbxState">Đã hoàn thành</label>
+                        <span id="lblState" class="message msg-box"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Ngày thực hiện:</label>
+                    <input id="txtExecuteDate" name="txtExecuteDate" data-date="true" maxlength="10" type="text" class="form-control" value="@executeDate" />
+                    <span id="lblExecuteDate" class="message msg-box"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Ngày hoàn thiện:</label>
+                    <input id="txtDeadline" name="txtDeadline" data-date="true" maxlength="10" type="text" class="form-control" value="@deadline" />
+                    <span id="lblDeadline" class="message msg-box"></span>
+                </div>
+            </div>
+        </div>
+        <!-- button acction -->
+        <div class="form-group text-right">
+            <button id="btnReset" class="btn btn-danger" type="reset">@Helper.Language.Resource.Label.BtnReset</button>
+            <button id="btnUpdate" class="btn btn-primary" type="button">@Helper.Language.Resource.Label.BtnUpdate</button>
+        </div>
+        <hr />
+        @{
+            if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+            {
+                <div class="form-group text-right att-data-list">
+                    <a href="@Helper.Page.Navigate.PathDataList()">
+                        @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<input id="txtID" type="hidden" value="@id" />
+@section scripts{
+    <script src="~/Areas/Management/_script/app-work-stack.js"></script>
+}
+
+

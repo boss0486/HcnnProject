@@ -1,0 +1,147 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@model  PagedList.IPagedList<WebCore.Entities.ProductHome>
+
+@{
+    string cateTitle = string.Empty;
+    List<ProductCategory> productCategories = ProductCategoryService.GetProductCategoryList();
+    List<WebCore.Entities.Support> supports = SupportService.GetSupportList();
+}
+<section class="product main-content">
+    <div class="container">
+        <header class="section-header">
+            <h3 class="head-text">@ViewBag.CategoryText</h3>
+        </header>
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 ">
+                <div class="about-cols mgb-40">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-md-4 wow fadeInUp">
+                                <div class="item-col">
+                                    <div class="img">
+                                        <a href="/san-pham/chi-tiet/@item.Alias"><img src="@item.ImagePath" alt="@item.Title" class="img-fluid" /></a>
+                                    </div>
+                                    <a href="/san-pham/chi-tiet/@item.Alias"><h2 class="title">@item.Title</h2></a>
+                                    <div class="price text-center">
+                                        <span class="price-new">@Helper.Page.Library.FormatCurrency(item.Price) đ</span>
+                                        @*<span class="price-old">1000000 @item.PriceListed đ</span>*@
+                                    </div>
+                                    <div class="product-bottom">
+                                        <div class="v-control">
+                                            <i class="fa fa-star actived"></i>
+                                            <i class="fa fa-star actived"></i>
+                                            <i class="fa fa-star actived"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="v-prepend">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2 ">
+                        <div class="form-group"><a href="#" data-btnback="true" class=" button-link"><i class="fas fa-arrow-circle-left"></i> Quay lại</a></div>
+                    </div>
+                    <div class="col-md-10">
+                        @{
+                            if (Model.Count() > 0)
+                            {
+                                <div class="form-group  text-right">
+                                    <nav aria-label="Page navigation example">
+                                        @Html.PagedListPager(Model, page => Url.Action("DataList", new { page }), Helper.Pagination.PagedRender.PagedListRenderOption(1))
+                                    </nav>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 ">
+                <div class="cate-box">
+
+
+                    @*<input placeholder="Search Product" type="text" class="form-control form-control-lg" />*@
+                    <h2 class="cate-header">Nhóm sản phẩm</h2>
+                    <div class="list-group list-group-flush cate-body">
+                        @foreach (var item in productCategories)
+                        {
+                            <a href="/nhom-san-pham/@item.Alias" class="list-group-item list-group-item-action "><i class="far fa-circle text-green "></i>&nbsp; &nbsp; @item.Title</a>
+                        }
+                    </div>
+                </div>
+                <div class="section-header">
+
+                    <div class="list-group list-group-flush vertical-support">
+                        <div class="box-top">
+                            <h2 class="title-box">Đăng ký tư vấn</h2>
+                            <span class="text-sub">email@gmail.com</span>
+                        </div>
+                        <h3 class="hotline">Hotline: 0983498218</h3>
+                        <div class="box-buton">
+                            <button type="button" class="btn btn-warning">&nbsp;</button>
+                            <button type="button" class="btn btn-warning">&nbsp;</button>
+                            <button type="button" class="btn btn-warning">&nbsp;</button>
+                            <button type="button" class="btn btn-warning">&nbsp;</button>
+                            <button type="button" class="btn btn-warning">&nbsp;</button>
+                        </div>
+                        <button type="button" class="btn btn-main">Đăng ký ngay</button>
+                    </div>
+                </div>
+
+                @*<div class="list-group list-group-flush vertical-support">
+                    @foreach (var item in supports)
+                    {
+                        <div class="list-group-item">
+                            <i class="fas fa-headset"></i> <span>@item.Title</span>
+                            <br />
+                            <div class="summary">@item.Summary</div>
+                        </div>
+                    }
+                </div>*@
+
+
+
+
+
+
+
+                <div class="section-header">
+                    <h2 class="head-text">Quảng cáo</h2>
+                    <div class="list-group list-group-flush vertical-support">
+                        @foreach (var item in supports)
+                        {
+                            <div class="list-group-item">
+                                <i class="fas fa-headset"></i> <span>@item.Title</span>
+                                <br />
+                                <div class="summary">@item.Summary</div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

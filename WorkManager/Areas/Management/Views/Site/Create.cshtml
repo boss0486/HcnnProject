@@ -1,0 +1,140 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@model WebCore.Entities.Site
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group">
+            <label class="form-label">@Helper.Language.Resource.Label.Title</label>
+            <input id="txtTitle" name="txtTitle" maxlength="80" type="text" class="form-control" value="" />
+            <span id="lblTitle" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">@Helper.Language.Resource.Label.Summary:</label>
+            <textarea id="txtSummary" name="txtSummary" class="form-control default"></textarea>
+            <span id="lblSummary" class="message msg-box"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Email:</label>
+                    <input id="txtEmail" name="txtEmail" maxlength="255" type="text" class="form-control" value="" />
+                    <span id="lblEmail" class="message msg-box"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Fax:</label>
+                    <input id="txtFax" name="txtFax" maxlength="10" type="text" class="form-control" value="" />
+                    <span id="lblFax" class="message msg-box"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Tel:</label>
+                    <input id="txtTel" name="txtTel" maxlength="20" type="text" class="form-control" value="" />
+                    <span id="lblTel" class="message msg-box"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Hotline:</label>
+                    <input id="txtPhone" name="txtPhone" maxlength="20" type="text" class="form-control" value="" />
+                    <span id="lblPhone" class="message msg-box"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">T.gian làm việc:</label>
+                    <input id="txtWorkTime" name="txtWorkTime" maxlength="80" type="text" class="form-control" value="" />
+                    <span id="lblWorkTime" class="message msg-box"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Địa chỉ</label>
+                    <input id="txtAddress" name="txtAddress" maxlength="80" type="text" class="form-control" value="" />
+                    <span id="lblAddress" class="message msg-box"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">Logo:</label>
+                <div class="form-group ">
+                    <div id="logoFile" class="text-center new-box-preview" style="background:#CCC; padding:30px 0px; height:145px">
+                        <img src="@Helper.Page.Default.FileNoImange" class="img-responsive" style="max-height:100%; margin:auto;" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Icon(.ico: size <= 32x32):</label>
+                <div class="form-group ">
+                    <div id="iconFile" class="text-center new-box-preview" style="background:#CCC; padding:30px 0px; height:145px">
+                        <img src="@Helper.Page.Default.FileNoImange" class="img-responsive" style="max-height:100%; margin:auto;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Bản đồ(gmap):</label>
+            <textarea id="txtGmap" name="txtGmap" class="form-control default" style="margin: 0px 2.65625px 0px 0px;height: 186px;width: 100%;max-height: 186px;max-width: 100%;"></textarea>
+            <span id="lblGmap" class="message msg-box"></span>
+        </div>
+    </div>
+</div>
+
+<div class="form-group m-t-5">
+    <input id="cbxActive" name="cbxActive" type="checkbox" class="filled-in" checked />
+    <label for="cbxActive">Kích hoạt</label>
+    <span id="lblActive" class="message msg-box"></span>
+</div>
+
+<!-- button acction -->
+<div class="form-group text-right">
+    <button id="btnReset" class="btn btn-danger" type="reset">@Helper.Language.Resource.Label.BtnReset</button>
+    <button id="btnCreate" class="btn btn-primary" type="button">@Helper.Language.Resource.Label.BtnCreate</button>
+</div>
+<hr />
+@{
+    if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+    {
+        <div class="form-group text-right att-data-list">
+            <a href="@Helper.Page.Navigate.PathDataList()">
+                @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    }
+}
+
+@section scripts{
+    <script src="~/Areas/Management/_script/app-site.js"></script>
+    <script type="text/javascript">
+        $(document).on('click', '#logoFile', function () {
+            AttmentFile.FileManager(null, '#logoFile', '', AttmentFile.FileEnum.ALONE);
+        });
+        $(document).on('click', '#iconFile', function () {
+            AttmentFile.FileManager(null, '#iconFile', '', AttmentFile.FileEnum.ALONE);
+        });
+    </script>
+}
+
+
+

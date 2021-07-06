@@ -1,0 +1,96 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+    BannerService bannerService = new BannerService();
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="form-label">Hình ảnh:</label>
+            <div id="imgBox" class="text-center new-box-preview" style="background: #f5f5f5;padding:30px 0px;height:320px;border: solid 1px #CCC;">
+                <img class="img-responsive" src="/files/default/00000000-0000-0000-0000-000000000000.gif"  />
+            </div>
+            <span id="lblFile" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Tiêu đề</label>
+            <input id="txtTitle" name="txtTitle" maxlength="50" type="text" class="form-control" />
+            <span id="lblTitle" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Mô tả</label>
+            <textarea id="txtSummary" name="txtSummary" class="form-control default"></textarea>
+            <span id="lblSummary" class="message msg-box"></span>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Liên kết:</label>
+            <input id="txtBackLink" name="txtBackLink" maxlength="255" type="text" class="form-control" />
+            <span id="lblBackLink" class="message msg-box"></span>
+        </div>
+        <div class="form-group m-t-5">
+            <input id="cbxActive" name="cbxActive" type="checkbox" class="filled-in" />
+            <label for="cbxActive">Kích hoạt</label>
+            <span id="lblActive" class="message msg-box"></span> 
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label class="form-label">Vị trí:</label>
+            <div class="vetical-menu" style="height: 592px;">
+                <ul id="LocationID" class="sidebar-menu">
+                    @{
+                        List<BannerType> bannerTypes = bannerService.BannerTypeData();
+                        if (bannerTypes.Count > 0)
+                        {
+                            foreach (var item in bannerTypes)
+                            {
+                                string idText = $"cbx{item.ID}";
+                                <li style="padding-bottom:20px;">
+                                    <input id="@idText" type="checkbox" class="filled-in" data-id="@item.ID">
+                                    <label for="@idText">@item.Title</label>
+                                </li>
+                            }
+                        }
+                    }
+
+                </ul>
+            </div>
+            <span id="lblLocationID" class="message msg-box"></span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-9">
+        <div class="form-group text-right">
+            <button id="btnReset" class="btn btn-danger" type="reset">@Helper.Language.Resource.Label.BtnReset</button>
+            <button id="btnCreate" class="btn btn-primary" type="button">@Helper.Language.Resource.Label.BtnCreate</button>
+        </div>
+        @{
+            if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+            {
+                <div class="form-group text-right att-data-list">
+                    <a href="@Helper.Page.Navigate.PathDataList()">
+                        @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>
+@section scripts{
+    <script src="~/Areas/Management/_script/banner.js"></script>
+    <script type="text/javascript"> 
+        $(document).on('click', '.new-box-preview', function () {
+            AttmentFile.FileManager(null, '.new-box-preview', '', AttmentFile.FileEnum.ALONE);
+            $("#lblFile").html("");
+        });
+        //
+        $(document).on('change', '#MenuControler input[type="checkbox"]', function () {
+            $('#MenuControler input[type="checkbox"]').not(this).prop('checked', false);
+        }); 
+    </script>
+}

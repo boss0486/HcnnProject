@@ -1,0 +1,66 @@
+﻿<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Quản lý tệp tin</h5>
+            <button type="button" class="close" data-dismiss="close" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body" style="padding-top:15px;">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="list-group">
+                        <li class="list-group-item">Thư mục</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Morbi leo risus</li>
+                        <li class="list-group-item">Porta ac consectetur ac</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <select id="ddlFmnCategory" name="ddlFmnCategory" class="form-control show-tick" data-live-search="true">
+                                    <option value="">-Nhóm-</option>
+                                </select>
+                                <span id="lblFmnCategory" class="message msg-box"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class=" form-group input-group">
+                                <input type="file" class="form-control" id="UploadFile" style="display:none;" />
+                                <div class="form-control"><i id="btnOpenClientFile" data-ibtn="true" class="far fa-folder"></i> <span id="inputFileControl">&nbsp;</span></div>
+                                <div id="btnUpload" class="input-group-addon"><i class="fas fa-upload" data-ibtn="true"></i></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select id="ddlFmnType" name="ddlFmnType" class="form-control show-tick" data-live-search="true">
+                                    <option value="0">-Loại-</option>
+                                    <option value="1">Hình ảnh</option>
+                                    <option value="2">Tệp nén</option>
+                                    <option value="3">Tài liệu</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group input-group">
+                                <input type="text" class="form-control" id="txtQueryFile" placeholder="Nhập từ khóa...">
+                                <span id="btnSearchFile" data-ibtn="true" class="input-group-addon"><i class="fa fa-search -icons"></i></span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row" id="FileManagerList"></div>
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="modal-footer">
+            <div id='FileManagerPagination' class='col-md-6'></div><div class='col-md-6 text-right'><button data-dismiss='close' class='btn btn-danger' style='margin: 20px auto' ;> &nbsp; Đóng &nbsp;</button></div>
+        </div>
+    </div>
+</div>

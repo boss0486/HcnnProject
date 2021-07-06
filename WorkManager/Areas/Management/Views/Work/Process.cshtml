@@ -1,0 +1,199 @@
+﻿@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@using WebCore.Services;
+@using WebCore.Model.Services;
+
+@Html.Partial("~/Areas/Management/Views/_ViewSearchPatial.cshtml", null)
+@* control ******************************************************************************************************@
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="tbcol-id">#&nbsp;</th>
+                <th class="tbcol-none">Tên công việc</th>
+                <th class="tbcol-none">Đơn vị tiếp nhận</th>
+                <th class="tbcol-date">Ng.thực hiện</th>
+                <th class="tbcol-date">Ng.kết thúc</th>
+                <th class="tbcol-action">Tiến độ</th>
+                <th class="tbcol-active">T.Thái</th>
+                <th class="tbcol-action">
+                    ACT
+                </th>
+            </tr>
+        </thead>
+        <tbody id="TblData"></tbody>
+    </table>
+</div>
+<div id="Pagination"></div>
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="processModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="processModallLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="margin-bottom: 15px;">
+                <h5 class="modal-title" id="processModallLabel">Thêm và giao việc</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Tên công việc:</label>
+                    <input id="p_txtTitle" name="p_txtTitle" maxlength="255" type="text" class="form-control" value="Công việc 01" />
+                    <span id="p_lblTitle" class="message msg-box"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">@Helper.Language.Resource.Label.HtmlText:</label>
+                    <textarea class="HtmlEditor" id="p_txtContent" name="p_txtContent" style="width:100%; min-height:250px;">Công việc 01</textarea>
+                    <span id="p_lblContent" class="message msg-box"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <label class="form-label">Đính kèm(file):</label>
+                            <div class="file-preview">
+                                <div class="file-preview-footer">
+                                    <i id="p_btnOpenManagerFile" class="far fa-folder" data-ibtn="true"></i><span class="photo-caption-text">... chọn file</span>
+                                </div>
+                                <div class="container-fuild modal-container-layout" style="height: 206px; overflow:auto">
+                                    <div class="pre-view"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Lưu ý:</label>
+                            <textarea id="p_txtNote" name="p_txtNote" class="form-control default"></textarea>
+                            <span id="p_lblNote" class="message msg-box"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="form-label">Ngày thực hiện:</label>
+                            <input id="p_txtExecuteDate" name="p_txtExecuteDate" data-date="true" maxlength="10" type="text" class="form-control" value="29-06-2021" />
+                            <span id="p_lblExecuteDate" class="message msg-box"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Ngày kết thúc:</label>
+                            <input id="p_txtDeadline" name="p_txtDeadline" data-date="true" maxlength="10" type="text" class="form-control" value="29-07-2021" />
+                            <span id="p_lblDeadline" class="message msg-box"></span>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <label class="form-label">Bộ phận tiếp nhận:</label>
+                            <select id="p_ddlAssignTo" name="p_ddlAssignTo" class="form-control show-tick" data-live-search="true">
+                                <option value="">-chọn-</option>
+                            </select>
+                            <span id="p_lblAssignTo" class="message msg-box"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nhóm/Người thực hiện:</label>
+                            <select id="p_userExecute" name="p_userExecute" class="form-control show-tick" data-live-search="true" multiple data-actions-box="true" title="-chọn-">
+                                @Html.Raw(UserService.DDLUser(""))
+                            </select>
+                            <span id="p_lblUserExecute" class="message msg-box"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nhóm/Người theo dõi:</label>
+                            <select id="p_userFollow" name="p_userFollow" class="form-control show-tick" data-live-search="true" multiple data-actions-box="true" title="-chọn-">
+                                @Html.Raw(UserService.DDLUser(""))
+                            </select>
+                            <span id="p_lblUserFollow" class="message msg-box"></span>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button id="p_btnProcessSave" type="button" class="btn btn-primary" data-type="0">Giao việc</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="p_txtId" value="" />
+    <input type="hidden" id="p_txtWorkID" value="" />
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="processFastModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="processFastModallLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="margin-bottom: 15px;">
+                <h5 class="modal-title" id="processFastModallLabel">Giao việc</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Ngày thực hiện:</label>
+                            <input id="pf_txtExecuteDate" name="pf_txtExecuteDate" data-date="true" maxlength="10" type="text" class="form-control" value="29-06-2021" />
+                            <span id="pf_lblExecuteDate" class="message msg-box"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Ngày kết thúc:</label>
+                            <input id="pf_txtDeadline" name="pf_txtDeadline" data-date="true" maxlength="10" type="text" class="form-control" value="29-07-2021" />
+                            <span id="pf_lblDeadline" class="message msg-box"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Nhóm/Người thực hiện:</label>
+                            <select id="pf_userExecute" name="pf_userExecute" class="form-control show-tick" data-live-search="true" multiple data-actions-box="true" title="-chọn-">
+                                @Html.Raw(UserService.DDLUser(""))
+                            </select>
+                            <span id="pf_lblUserExecute" class="message msg-box"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Nhóm/Người theo dõi:</label>
+                            <select id="pf_userFollow" name="p_userFollow" class="form-control show-tick" data-live-search="true" multiple data-actions-box="true" title="-chọn-">
+                            </select>
+                            <span id="pf_lblUserFollow" class="message msg-box"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Lưu ý:</label>
+                    <textarea id="pf_txtNote" name="pf_txtNote" class="form-control default"></textarea>
+                    <span id="pf_lblNote" class="message msg-box"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button id="pf_btnProcessSave" type="button" class="btn btn-primary" data-type="0">Giao việc</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="pf_txtId" value="" />
+    <input type="hidden" id="pf_txtWorkID" value="" />
+</div>
+@section scripts{
+    <script src="~/Areas/Management/_script/app-work.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            workController.ProcessList(1);
+            //
+            $().fileManage({});
+            $(document).on("click", "#p_btnOpenManagerFile", function () {
+                var selected = [];
+                $("#processModal .file-preview .i-list").each((index, item) => {
+                    selected.push($(item).data("id"));
+                });
+                //
+                $("#processModal").fileFinder({
+                    fileType: fmEnum.fileType.Multi,
+                    selected: selected,
+                    content: $('#processModal .file-preview .pre-view'),
+                    isList: true
+                });
+            });
+            //
+        });
+    </script>
+}

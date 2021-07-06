@@ -1,0 +1,62 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@model WebCore.Entities.ViewWorkStackResult
+
+@{
+
+    string id = "";
+    string title = "";
+    string htmlText = "";
+    string deadline = null;
+    string executeDate = null;
+    int workstate = -1;
+    string state = "Chưa hoàn thành";
+
+    if (Model != null)
+    {
+        id = Model.ID;
+        title = Model.Title;
+        htmlText = Model.HtmlText;
+        executeDate = Model.ExecuteDate;
+        deadline = Model.Deadline;
+
+        if (Model.State)
+        {
+            state = "Đã hoàn thành";
+        }
+
+    }
+}
+<div class="row">
+    <div class="col-md-8">
+        <div class="top-pic">
+            <i class="fas fa-file-invoice"></i>&nbsp;<label>Thông tin:</label>
+        </div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Tiêu đề: @title</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Trạng thái: @state</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Nội dung: <div class="" style="padding:15px;">@Html.Raw(htmlText)</div> <hr /></div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Ngày thực hiện: @executeDate</div>
+        <div class="form-group"><i class="fas fa-check-circle"></i> Ngày kết thúc: @deadline</div>
+        @{
+            if (PermissionService.CheckActionInMenuItem(Helper.Page.MetaSEO.ControllerText, WebCore.Entities.RoleActionKey.DataList))
+            {
+                <div class="form-group text-right att-data-list">
+                    <a href="@Helper.Page.Navigate.PathDataList()">
+                        @Helper.Language.Resource.Label.DataList <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>
+

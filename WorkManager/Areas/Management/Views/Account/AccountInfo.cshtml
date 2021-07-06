@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.Model.Enum;
+
+@model WebCore.Entities.UserResult
+
+@{
+    string id = "";
+    string areaId = "";
+    string loginId = "";
+    string imageFile = "";
+    string fullName = "";
+    string nickname = "";
+    string birthday = "";
+    string email = "";
+    string phone = "";
+    string address = "";
+    string languageId = "";
+    string createdBy = "";
+    string createdDate = "";
+    string isBlock = "Hoạt động";
+    string enabled = "None";
+
+    if (Model != null)
+    {
+        id = Model.ID;
+        loginId = Model.LoginID;
+        fullName = Model.FullName;
+        nickname = Model.Nickname;
+        email = Model.Email;
+        phone = Model.Phone;
+        address = Model.Address;
+        languageId = Model.LanguageID;
+        createdBy = Model.CreatedBy;
+        createdDate = Model.CreatedDate;
+
+        byte[] imgByte = Helper.File.AttachmentFile.ImageToByte(Helper.Security.Library.GenerateQRCode(id));
+        imageFile = Convert.ToBase64String(imgByte);
+
+
+        //
+        if (Model.IsBlock)
+        {
+            isBlock = "Tài khoản bị khóa";
+        }
+        if (Model.Enabled == (int)ModelEnum.State.ENABLED)
+        {
+            enabled = "ENABLED";
+        }
+        else if (Model.Enabled == (int)ModelEnum.State.DISABLE)
+        {
+            enabled = "DISABLE";
+        }
+    }
+}
+
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="top-pic">
+            <i class="fas fa-file-invoice"></i>&nbsp;<label>Thông tin truy cập: </label>
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td style="width:200px">Tài khoản</td>
+                    <td>@loginId</td>
+                </tr>
+                <tr>
+                    <td>Địa chỉ E-mail</td>
+                    <td>@email</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="top-pic">
+            <i class="fas fa-file-invoice"></i>&nbsp;<label>Thông tin Card/ID:</label>
+        </div>
+        <div class="form-group">
+            <div style="width: 220px;height: 220px;border: solid 10px #d9e4d6;">
+                <img src="data:image/png;base64, @imageFile" class="img-responsive" />
+            </div>
+            <br />
+            <label class="form-label">ID: <b style="color:#F00; text-transform:uppercase;">@id</b></label>
+            <div class="alert alert-warning" role="alert">
+                Vui lòng không chia sẻ mã này cho bất kì ai.
+            </div>
+        </div>
+    </div>
+</div>

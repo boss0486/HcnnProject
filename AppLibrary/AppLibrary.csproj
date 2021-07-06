@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BF66C783-F27B-489C-A78E-43943C741E6B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AppLibrary</RootNamespace>
+    <AssemblyName>AppLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AL.NetFrame">
+      <HintPath>..\Libraries\dll\AL.NetFrame.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.78\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper.SimpleCRUD, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.SimpleCRUD.2.2.0.1\lib\netstandard2.0\Dapper.SimpleCRUD.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=5.5.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.5.5.2\lib\net45\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.8.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.8.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.8.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.3.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.3.6\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.4.1\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="Select.HtmlToPdf, Version=20.2.0.0, Culture=neutral, PublicKeyToken=e0ae9f6e27a97018, processorArchitecture=MSIL">
+      <HintPath>..\packages\Select.HtmlToPdf.20.2.0\lib\net40\Select.HtmlToPdf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.8.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="zxing, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net47\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net47\zxing.presentation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Application\Chat\Entities\ChatMessage.cs" />
+    <Compile Include="Application\Chat\Services\ChatMessageService.cs" />
+    <Compile Include="Application\Report\Entities\Report.cs" />
+    <Compile Include="Application\Report\Enum\ReportEnum.cs" />
+    <Compile Include="Application\Report\Services\ReportService.cs" />
+    <Compile Include="Application\Chat\Entities\ChatConnect.cs" />
+    <Compile Include="Application\Chat\Services\ChatConnectService.cs" />
+    <Compile Include="Application\Work\Entities\WorkUser.cs" />
+    <Compile Include="Application\Work\Entities\WorkPlan.cs" />
+    <Compile Include="Application\Work\Entities\WorkState.cs" />
+    <Compile Include="Application\Work\Entities\WorkStack.cs" />
+    <Compile Include="Application\Work\Enum\WorkStackEnum.cs" />
+    <Compile Include="Application\Work\Services\WorkStateService.cs" />
+    <Compile Include="Application\Work\Services\WorkUserService.cs" />
+    <Compile Include="Application\Work\Services\WorkStackService.cs" />
+    <Compile Include="Application\Work\Services\WorkPlanService.cs" />
+    <Compile Include="Core\Areas\Entities\AreaApplication.cs" />
+    <Compile Include="Core\Areas\Enum\AreaApplicationEnum.cs" />
+    <Compile Include="Core\Areas\Services\AreaApplicationService.cs" />
+    <Compile Include="Core\Database\DbConnect.cs" />
+    <Compile Include="Core\Database\DbConnectModel.cs" />
+    <Compile Include="Core\MenuItem\Entities\MenuAction.cs" />
+    <Compile Include="Core\MenuItem\Entities\MenuController.cs" />
+    <Compile Include="Core\MenuItem\Entities\MenuItem.cs" />
+    <Compile Include="Core\MenuItem\Enum\MenuItemEnum.cs" />
+    <Compile Include="Core\MenuItem\Services\MenuActionService.cs" />
+    <Compile Include="Core\MenuItem\Services\MenuControllerService.cs" />
+    <Compile Include="Core\MenuItem\Services\MenuItemService.cs" />
+    <Compile Include="Application\Menu\Entities\Menu.cs" />
+    <Compile Include="Application\Menu\Enum\MenuEnum.cs" />
+    <Compile Include="Application\Menu\Services\MenuService.cs" />
+    <Compile Include="Core\Model\Entities\Model.cs" />
+    <Compile Include="Core\Model\Enum\ModelEnum.cs" />
+    <Compile Include="Core\Model\Services\ModelService.cs" />
+    <Compile Include="Core\Role\Entities\CMSRole.cs" />
+    <Compile Include="Core\Role\Enum\CMSRoleEnum.cs" />
+    <Compile Include="Core\Role\Services\CMSRoleService.cs" />
+    <Compile Include="Application\UserClient\Entities\UseClient.cs" />
+    <Compile Include="Application\UserClient\Services\UserClientService.cs" />
+    <Compile Include="Core\User\Entities\CMSUserInfo.cs" />
+    <Compile Include="Core\User\Entities\CMSUserLogin.cs" />
+    <Compile Include="Core\User\Entities\CMSUserRole.cs" />
+    <Compile Include="Core\User\Entities\CMSUserSetting.cs" />
+    <Compile Include="Core\User\Entities\Authen.cs" />
+    <Compile Include="Core\User\Entities\UserInfo.cs" />
+    <Compile Include="Core\User\Entities\UserLogin.cs" />
+    <Compile Include="Core\User\Entities\UserRole.cs" />
+    <Compile Include="Core\User\Entities\UserSetting.cs" />
+    <Compile Include="Core\User\Services\CMSUserInfoService.cs" />
+    <Compile Include="Core\User\Services\CMSUserLoginService.cs" />
+    <Compile Include="Core\User\Services\CMSUserRoleService.cs" />
+    <Compile Include="Core\User\Services\CMSUserService.cs" />
+    <Compile Include="Core\User\Services\CMSUserSettingService.cs" />
+    <Compile Include="Core\User\Services\UserInfoService.cs" />
+    <Compile Include="Core\User\Services\UserLoginService.cs" />
+    <Compile Include="Core\User\Services\UserRoleService.cs" />
+    <Compile Include="Core\User\Services\AuthenService.cs" />
+    <Compile Include="Core\User\Services\UserService.cs" />
+    <Compile Include="Core\User\Services\UserSettingService.cs" />
+    <Compile Include="Core\User\Entities\User.cs" />
+    <Compile Include="Helper\AttachmentFile.cs" />
+    <Compile Include="Helper\CMSController.cs" />
+    <Compile Include="Helper\Contant.cs" />
+    <Compile Include="Helper\HelperCurrent.cs" />
+    <Compile Include="Helper\HelperDateTime.cs" />
+    <Compile Include="Helper\HelperLanguage.cs" />
+    <Compile Include="Helper\HelperMail.cs" />
+    <Compile Include="Helper\HelperModel.cs" />
+    <Compile Include="Helper\HelperPage.cs" />
+    <Compile Include="Helper\HelperPaging.cs" />
+    <Compile Include="Helper\HelperSecurity.cs" />
+    <Compile Include="Helper\HelperUser.cs" />
+    <Compile Include="Helper\Notifization.cs" />
+    <Compile Include="Helper\ValidData.cs" />
+    <Compile Include="Loged\SystemLog.cs" />
+    <Compile Include="Module\Article\Entities\ArticleCategory.cs" />
+    <Compile Include="Module\Article\Enum\ArticleCategoryEnum.cs" />
+    <Compile Include="Module\Article\Services\ArticleCategoryService .cs" />
+    <Compile Include="Application\Work\Entities\Work.cs" />
+    <Compile Include="Application\Work\Enum\WorkEnum.cs" />
+    <Compile Include="Application\Work\Services\WorkService.cs" />
+    <Compile Include="Module\Attachment\Entities\AttachmentShared.cs" />
+    <Compile Include="Module\Attachment\Enum\AttachmentCategoryEnum.cs" />
+    <Compile Include="Module\Attachment\Enum\AttachmentEnum.cs" />
+    <Compile Include="Module\Attachment\Services\AttachmentCategoryService.cs" />
+    <Compile Include="Module\Attachment\Services\AttachmentSharedService.cs" />
+    <Compile Include="Module\DepartmentPart\Entities\DepartmentPart.cs" />
+    <Compile Include="Module\DepartmentPart\Services\DepartmentPartService.cs" />
+    <Compile Include="Module\Department\Entities\Department.cs" />
+    <Compile Include="Module\Department\Services\DepartmentService.cs" />
+    <Compile Include="Module\Project\Enum\ProjectCategoryEnum.cs" />
+    <Compile Include="Module\Project\Services\ProjectCategoryService .cs" />
+    <Compile Include="Module\Project\Entities\ProjectCategory.cs" />
+    <Compile Include="Module\Product\Entities\ProductCategory.cs" />
+    <Compile Include="Module\Product\Enum\ProductCategoryEnum.cs" />
+    <Compile Include="Module\Product\Services\ProductCategoryService.cs" />
+    <Compile Include="Module\Quotation\Entities\Quotation.cs" />
+    <Compile Include="Module\Quotation\Services\QuotationService.cs" />
+    <Compile Include="Module\Account\Entities\Account.cs" />
+    <Compile Include="Module\Account\Services\AccountService.cs" />
+    <Compile Include="Module\AreaGeographical\Entities\AreaInland.cs" />
+    <Compile Include="Module\AreaGeographical\Entities\AreaNational.cs" />
+    <Compile Include="Module\AreaGeographical\Entities\National.cs" />
+    <Compile Include="Module\AreaGeographical\Services\AreaInlandService.cs" />
+    <Compile Include="Module\AreaGeographical\Services\AreaNationalService.cs" />
+    <Compile Include="Module\AreaGeographical\Services\NationalService.cs" />
+    <Compile Include="Module\About\Entities\About.cs" />
+    <Compile Include="Module\About\Services\AboutService.cs" />
+    <Compile Include="Module\Faq\Entities\Faq.cs" />
+    <Compile Include="Module\Faq\Services\FaqService.cs" />
+    <Compile Include="Module\Contact\Enum\ContactEnum.cs" />
+    <Compile Include="Module\Project\Entities\Project.cs" />
+    <Compile Include="Module\Project\Entities\ProjectGroup.cs" />
+    <Compile Include="Module\Project\Services\ProjectGroupService.cs" />
+    <Compile Include="Module\Project\Services\ProjectService.cs" />
+    <Compile Include="Module\Article\Entities\Article.cs" />
+    <Compile Include="Module\Article\Entities\ArticleGroup.cs" />
+    <Compile Include="Module\Article\Services\ArticleGroupService.cs" />
+    <Compile Include="Module\Article\Services\ArticleService.cs" />
+    <Compile Include="Module\Attachment\Entities\Attachment.cs" />
+    <Compile Include="Module\Attachment\Entities\AttachmentCategory.cs" />
+    <Compile Include="Module\Attachment\Entities\AttachmentIngredient.cs" />
+    <Compile Include="Module\Attachment\Services\AttachmentIngredientService.cs" />
+    <Compile Include="Module\Attachment\Services\AttachmentService.cs" />
+    <Compile Include="Module\Site\Entities\Site.cs" />
+    <Compile Include="Module\Site\Enum\SiteEnum.cs" />
+    <Compile Include="Module\Site\Services\SiteService.cs" />
+    <Compile Include="Module\SocialNetwork\Entities\SocialNetwork.cs" />
+    <Compile Include="Module\SocialNetwork\Services\SocialNetworkService.cs" />
+    <Compile Include="Module\Support\Entities\Support.cs" />
+    <Compile Include="Module\Support\Services\SupportService.cs" />
+    <Compile Include="Module\Bank\Entities\Bank.cs" />
+    <Compile Include="Module\Bank\Entities\CardCredit.cs" />
+    <Compile Include="Module\Bank\Services\BankService.cs" />
+    <Compile Include="Module\Bank\Services\CardCreditService.cs" />
+    <Compile Include="Module\Banner\Entities\Banner.cs" />
+    <Compile Include="Module\Banner\Enum\BannerEnum.cs" />
+    <Compile Include="Module\Banner\Services\BannerService.cs" />
+    <Compile Include="Module\Contact\Entities\Contact.cs" />
+    <Compile Include="Module\Contact\Services\ContactService.cs" />
+    <Compile Include="Module\Language\Entities\Language.cs" />
+    <Compile Include="Module\Language\Services\LanguageService.cs" />
+    <Compile Include="Module\Meta\Entities\Meta.cs" />
+    <Compile Include="Module\Meta\Entities\MetaGroup.cs" />
+    <Compile Include="Module\Meta\Services\MetaGroupService.cs" />
+    <Compile Include="Module\Meta\Services\MetaService.cs" />
+    <Compile Include="Module\Permission\Entities\Permission.cs" />
+    <Compile Include="Module\Permission\Entities\Role.cs" />
+    <Compile Include="Module\Permission\Entities\RoleActionSetting.cs" />
+    <Compile Include="Module\Permission\Entities\RoleControllerSetting.cs" />
+    <Compile Include="Module\Permission\Enum\RoleEnum.cs" />
+    <Compile Include="Module\Permission\Services\PermissionService.cs" />
+    <Compile Include="Module\Permission\Services\RoleActionSettingService.cs" />
+    <Compile Include="Module\Permission\Services\RoleControllerSettingService.cs" />
+    <Compile Include="Module\Permission\Services\RoleService.cs" />
+    <Compile Include="Module\Product\Entities\Product.cs" />
+    <Compile Include="Module\Product\Entities\ProductGroup.cs" />
+    <Compile Include="Module\Product\Entities\ProductProvider.cs" />
+    <Compile Include="Module\Product\Entities\ProductWarranty.cs" />
+    <Compile Include="Module\Product\Enum\ProductEnum.cs" />
+    <Compile Include="Module\Product\Services\ProductGroupService.cs" />
+    <Compile Include="Module\Product\Services\ProductProviderService.cs" />
+    <Compile Include="Module\Product\Services\ProductService.cs" />
+    <Compile Include="Module\Product\Services\ProductWarrantyService.cs" />
+    <Compile Include="Module\ServicePack\Entities\ServicePack.cs" />
+    <Compile Include="Module\ServicePack\Entities\ServicePackCategory.cs" />
+    <Compile Include="Module\ServicePack\Services\ServicePackCategoryService.cs" />
+    <Compile Include="Module\ServicePack\Services\ServicePackService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\PagedList.css" />
+    <Content Include="File\no-img.gif" />
+    <Content Include="Libraries\dll\AL.NetFrame.dll" />
+    <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.4.js" />
+    <Content Include="Scripts\jquery-1.6.4.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Application\Area\Enum\" />
+    <Folder Include="Application\Chat\Enum\" />
+    <Folder Include="Core\Authorization\Entities\" />
+    <Folder Include="Core\Authorization\Enum\" />
+    <Folder Include="Core\Authorization\Services\" />
+    <Folder Include="Module\Account\_Model\" />
+    <Folder Include="Module\ServicePack\Enum\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

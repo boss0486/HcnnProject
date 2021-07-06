@@ -1,0 +1,107 @@
+﻿@using WebCore.Entities;
+@using WebCore.Services;
+@using WebCore.ENM;
+@using WebCore.Model.Enum;
+@using WebCore.Model.Services
+
+@using Helper.Language;
+@using Helper.TimeData;
+
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@model  PagedList.IPagedList<WebCore.Entities.ArticleHome>
+
+@{
+    string cateTitle = string.Empty;
+    List<ArticleCategory> productCategories = ArticleCategoryService.GetArticleCategoryList();
+    List<WebCore.Entities.Support> supports = SupportService.GetSupportList();
+}
+
+<section class="about main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <header class="section-header">
+                    <h3 class="head-text">@ViewBag.CategoryText</h3>
+                </header>
+                <div class="row news">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="media news-box">
+                                    <div class="align-self-start mr-3 news-img "><img class="img-responsive" src="@item.ImagePath" alt="@item.Title" /></div>
+                                    <div class="media-body">
+                                        <a href="/bai-viet/chi-tiet/@item.Alias"><h5 class="title">@Helper.Page.Library.SubText(45, item.Title)</h5></a>
+                                        <p class="icon"><span><i class="fas fa-calendar"></i> @item.ViewDate</span> | <span><i class="fas fa-check-circle"></i> @item.ViewTotal</span></p>
+                                        <p class="summary">@Helper.Page.Library.SubText(85, item.Summary)</p>
+                                    </div>
+                                    <a href="/bai-viet/chi-tiet/@item.Alias" class="link">chi tiet</a>
+                                </div>
+                                <hr />
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group"><a href="#" data-btnback="true" class=" button-link"><i class="fas fa-arrow-circle-left"></i> Quay lại</a></div>
+                    </div>
+                    @{ if (Model.Count() > 0)
+                        {
+                            <div class="col-md-10">
+                                <div class="form-group  text-right">
+                                    <nav aria-label="Page navigation example">
+                                        @Html.PagedListPager(Model, page => Url.Action("DataList", new { page }), Helper.Pagination.PagedRender.PagedListRenderOption(1))
+                                    </nav>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="section-header">
+                    <h2 class="head-text">Danh mục</h2>
+                    <div class="list-group list-group-flush vertical-category">
+                        @foreach (var item in productCategories)
+                        {
+                            <a href="/nhom-bai-viet/@item.Alias" class="list-group-item list-group-item-action list-group-item-success"><i class="fas fa-arrows-alt"></i> @item.Title</a>
+                        }
+                    </div>
+                </div>
+                <div class="section-header">
+                    <h2 class="head-text">Hỗ trợ</h2>
+                    <div class="list-group list-group-flush vertical-support">
+                        @foreach (var item in supports)
+                        {
+                            <div class="list-group-item">
+                                <i class="fas fa-headset"></i> <span>@item.Title</span>
+                                <br />
+                                <div class="summary">@item.Summary</div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="section-header">
+                    <h2 class="head-text">Quảng cáo</h2>
+                    <div class="list-group list-group-flush vertical-support">
+                        @foreach (var item in supports)
+                        {
+                            <div class="list-group-item">
+                                <i class="fas fa-headset"></i> <span>@item.Title</span>
+                                <br />
+                                <div class="summary">@item.Summary</div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
