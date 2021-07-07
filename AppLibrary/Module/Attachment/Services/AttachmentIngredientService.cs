@@ -104,12 +104,10 @@ namespace WebCore.Services
             string sqlQuery = @"SELECT a.*, ai.TypeID FROM Attachment as a
                 INNER JOIN AttachmentIngredient as ai ON ai.FileID = a.ID
                 WHERE ai.ForID = @ForID AND ai.TypeID = @TypeID";
-            ProductService productService = new ProductService(connection);
-            List<ViewAttachment> viewAttachments = productService.Query<ViewAttachment>(sqlQuery, new { TypeID = typeId, ForID = forId }, transaction: transaction).ToList();
-            if (viewAttachments.Count == 0)
-                return null;
-            //
-            return viewAttachments;
+          //  ProductService productService = new ProductService(connection);
+   
+            
+            return null;
         }
     }
 }

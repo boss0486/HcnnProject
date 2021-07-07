@@ -24,8 +24,7 @@ namespace WebApplication.Template.Controllers
         {
             try
             {
-                using (var menuItemService = new MenuItemService())
-                    return menuItemService.MenuItemManage( );
+                return Notifization.NotService;
             }
             catch (Exception ex)
             {

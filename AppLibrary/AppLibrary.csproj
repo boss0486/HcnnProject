@@ -147,6 +147,7 @@
     <Compile Include="Application\Report\Services\ReportService.cs" />
     <Compile Include="Application\Chat\Entities\ChatConnect.cs" />
     <Compile Include="Application\Chat\Services\ChatConnectService.cs" />
+    <Compile Include="Application\Report\Services\TaskReportService.cs" />
     <Compile Include="Application\Work\Entities\WorkUser.cs" />
     <Compile Include="Application\Work\Entities\WorkPlan.cs" />
     <Compile Include="Application\Work\Entities\WorkState.cs" />
@@ -161,18 +162,9 @@
     <Compile Include="Core\Areas\Services\AreaApplicationService.cs" />
     <Compile Include="Core\Database\DbConnect.cs" />
     <Compile Include="Core\Database\DbConnectModel.cs" />
-    <Compile Include="Core\MenuItem\Entities\MenuAction.cs" />
-    <Compile Include="Core\MenuItem\Entities\MenuController.cs" />
-    <Compile Include="Core\MenuItem\Entities\MenuItem.cs" />
-    <Compile Include="Core\MenuItem\Enum\MenuItemEnum.cs" />
-    <Compile Include="Core\MenuItem\Services\MenuActionService.cs" />
-    <Compile Include="Core\MenuItem\Services\MenuControllerService.cs" />
-    <Compile Include="Core\MenuItem\Services\MenuItemService.cs" />
-    <Compile Include="Application\Menu\Entities\Menu.cs" />
-    <Compile Include="Application\Menu\Enum\MenuEnum.cs" />
-    <Compile Include="Application\Menu\Services\MenuService.cs" />
     <Compile Include="Core\Model\Entities\Model.cs" />
     <Compile Include="Core\Model\Enum\ModelEnum.cs" />
+    <Compile Include="Core\Model\ReportModel\TaskReportModel.cs" />
     <Compile Include="Core\Model\Services\ModelService.cs" />
     <Compile Include="Core\Role\Entities\CMSRole.cs" />
     <Compile Include="Core\Role\Enum\CMSRoleEnum.cs" />
@@ -215,9 +207,6 @@
     <Compile Include="Helper\Notifization.cs" />
     <Compile Include="Helper\ValidData.cs" />
     <Compile Include="Loged\SystemLog.cs" />
-    <Compile Include="Module\Article\Entities\ArticleCategory.cs" />
-    <Compile Include="Module\Article\Enum\ArticleCategoryEnum.cs" />
-    <Compile Include="Module\Article\Services\ArticleCategoryService .cs" />
     <Compile Include="Application\Work\Entities\Work.cs" />
     <Compile Include="Application\Work\Enum\WorkEnum.cs" />
     <Compile Include="Application\Work\Services\WorkService.cs" />
@@ -230,14 +219,6 @@
     <Compile Include="Module\DepartmentPart\Services\DepartmentPartService.cs" />
     <Compile Include="Module\Department\Entities\Department.cs" />
     <Compile Include="Module\Department\Services\DepartmentService.cs" />
-    <Compile Include="Module\Project\Enum\ProjectCategoryEnum.cs" />
-    <Compile Include="Module\Project\Services\ProjectCategoryService .cs" />
-    <Compile Include="Module\Project\Entities\ProjectCategory.cs" />
-    <Compile Include="Module\Product\Entities\ProductCategory.cs" />
-    <Compile Include="Module\Product\Enum\ProductCategoryEnum.cs" />
-    <Compile Include="Module\Product\Services\ProductCategoryService.cs" />
-    <Compile Include="Module\Quotation\Entities\Quotation.cs" />
-    <Compile Include="Module\Quotation\Services\QuotationService.cs" />
     <Compile Include="Module\Account\Entities\Account.cs" />
     <Compile Include="Module\Account\Services\AccountService.cs" />
     <Compile Include="Module\AreaGeographical\Entities\AreaInland.cs" />
@@ -246,19 +227,9 @@
     <Compile Include="Module\AreaGeographical\Services\AreaInlandService.cs" />
     <Compile Include="Module\AreaGeographical\Services\AreaNationalService.cs" />
     <Compile Include="Module\AreaGeographical\Services\NationalService.cs" />
-    <Compile Include="Module\About\Entities\About.cs" />
-    <Compile Include="Module\About\Services\AboutService.cs" />
     <Compile Include="Module\Faq\Entities\Faq.cs" />
     <Compile Include="Module\Faq\Services\FaqService.cs" />
     <Compile Include="Module\Contact\Enum\ContactEnum.cs" />
-    <Compile Include="Module\Project\Entities\Project.cs" />
-    <Compile Include="Module\Project\Entities\ProjectGroup.cs" />
-    <Compile Include="Module\Project\Services\ProjectGroupService.cs" />
-    <Compile Include="Module\Project\Services\ProjectService.cs" />
-    <Compile Include="Module\Article\Entities\Article.cs" />
-    <Compile Include="Module\Article\Entities\ArticleGroup.cs" />
-    <Compile Include="Module\Article\Services\ArticleGroupService.cs" />
-    <Compile Include="Module\Article\Services\ArticleService.cs" />
     <Compile Include="Module\Attachment\Entities\Attachment.cs" />
     <Compile Include="Module\Attachment\Entities\AttachmentCategory.cs" />
     <Compile Include="Module\Attachment\Entities\AttachmentIngredient.cs" />
@@ -295,19 +266,6 @@
     <Compile Include="Module\Permission\Services\RoleActionSettingService.cs" />
     <Compile Include="Module\Permission\Services\RoleControllerSettingService.cs" />
     <Compile Include="Module\Permission\Services\RoleService.cs" />
-    <Compile Include="Module\Product\Entities\Product.cs" />
-    <Compile Include="Module\Product\Entities\ProductGroup.cs" />
-    <Compile Include="Module\Product\Entities\ProductProvider.cs" />
-    <Compile Include="Module\Product\Entities\ProductWarranty.cs" />
-    <Compile Include="Module\Product\Enum\ProductEnum.cs" />
-    <Compile Include="Module\Product\Services\ProductGroupService.cs" />
-    <Compile Include="Module\Product\Services\ProductProviderService.cs" />
-    <Compile Include="Module\Product\Services\ProductService.cs" />
-    <Compile Include="Module\Product\Services\ProductWarrantyService.cs" />
-    <Compile Include="Module\ServicePack\Entities\ServicePack.cs" />
-    <Compile Include="Module\ServicePack\Entities\ServicePackCategory.cs" />
-    <Compile Include="Module\ServicePack\Services\ServicePackCategoryService.cs" />
-    <Compile Include="Module\ServicePack\Services\ServicePackService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -328,8 +286,10 @@
     <Folder Include="Core\Authorization\Entities\" />
     <Folder Include="Core\Authorization\Enum\" />
     <Folder Include="Core\Authorization\Services\" />
+    <Folder Include="Core\MenuItem\Entities\" />
+    <Folder Include="Core\MenuItem\Enum\" />
+    <Folder Include="Core\MenuItem\Services\" />
     <Folder Include="Module\Account\_Model\" />
-    <Folder Include="Module\ServicePack\Enum\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -738,10 +738,7 @@ namespace Helper.Page
         {
             get
             {
-                using (var service = new MenuItemService())
-                {
-                    return service.GetSiteMap(MetaSEO.AreaText, MetaSEO.ControllerText, MetaSEO.ActionText);
-                }
+                return string.Empty;
             }
         }
         public string ConvertAction(string _param)

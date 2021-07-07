@@ -17,16 +17,8 @@ namespace WebApplication.HomePage.Controllers
         public ActionResult DataList(string alias, int page = 1)
         {
             string menuId = string.Empty;
-            ViewData["CategoryText"] = "Hỏi đáp";
-            MenuBar menuBar = MenuService.GetMenuBarByAlias(alias);
-            if (menuBar != null)
-            {
-                menuId = menuBar.ID;
-                ViewData["CategoryText"] = menuBar.Title;
-            }
-            //    
-            IEnumerable<FaqResult> models = FaqService.GetFaqByMenu(menuId, page);
-            return View(models);
+             
+            return View();
         }  
     }
 }

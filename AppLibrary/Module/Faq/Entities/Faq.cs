@@ -50,7 +50,7 @@ namespace WebCore.Entities
         public string Summary { get; set; } = string.Empty;
         public string Alias { get; set; }
         [NotMapped]
-        public string MenuText => MenuService.GetMenuName(MenuID);
+        public string MenuText => string.Empty;
 
     }
     public class FaqOption

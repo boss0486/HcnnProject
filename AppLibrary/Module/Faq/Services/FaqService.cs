@@ -321,19 +321,7 @@ namespace WebCore.Services
             }
         }
 
-        public static IEnumerable<FaqResult> GetFaqByMenu(string menuId, int page = 1)
-        {
-            using (var service = new ProductService())
-            {
-                string whereCondition = string.Empty;
-                if (!string.IsNullOrWhiteSpace(menuId))
-                    whereCondition = " AND MenuID = @MenuID";
-                //
-                string sqlQuery = $@"SELECT TOP (30) * FROM App_Faq WHERE Enabled = @Enabled {whereCondition} ORDER BY CreatedDate DESC";
-                IEnumerable<FaqResult> items = service.Query<FaqResult>(sqlQuery, new { Enabled = (int)ModelEnum.State.ENABLED, MenuID = menuId }).OrderBy(m => m.Title).ToList();
-                return items.ToPagedList(page, PagedRender.FAQ_PAGENUMBER);
-            }
-        }
+        
         public static FaqResult GetFaqByAlias(string alias)
         {
 

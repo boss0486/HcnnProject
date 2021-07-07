@@ -21,19 +21,11 @@ namespace WebApplication.Management.Controllers
         //##############################################################################################################################################################################################################################################################
         [HttpPost]
         [Route("Action/PermissionData")]
-        public ActionResult PermissionDataByRoleID(MvcControllerRoleIDModel model)
+        public ActionResult PermissionDataByRoleID()
         {
             try
             {
-                using (var service = new MenuControllerService())
-                {
-                    var data = service.PermisionController(new MvcControllerRoleIDModel
-                    {
-                        RoleID = model.RoleID,
-                        RouteArea = AreaApplicationService.GetRouteAreaID((int)WebCore.ENM.AreaApplicationEnum.AreaType.MANAGEMENT)
-                    });
-                    return Notifization.Data(MessageText.Success, data);
-                }
+                return Notifization.Data(MessageText.Success, null); 
             }
             catch (Exception ex)
             {
