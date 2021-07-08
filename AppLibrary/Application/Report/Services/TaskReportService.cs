@@ -31,7 +31,7 @@ namespace WebCore.Services
         public ActionResult DataList(SearchTaskReportModel model)
         {
             int page = model.Page;
-            
+
             string sqlQuery = GetSqlQuery(model);
 
             using (var service = new TaskReportService())
@@ -61,28 +61,22 @@ namespace WebCore.Services
         {
             var lstResult = new List<SearchTaskReportResult>();
 
-            var assigneeIds = reportModels.Select(x => x.AssigneeId).ToList();
+            var assigneeIds = reportModels.Select(x => x.AssigneeId).Distinct().ToList();
 
             for (int i = 0; i < assigneeIds.Count; i++)
             {
-                for (int j = 0; j < reportModels.Count; j++)
+                var workByAssignee = reportModels.Where(x => x.AssigneeId == assigneeIds[i]);
+                var result = new SearchTaskReportResult
                 {
-                    if (reportModels[j].AssigneeId == assigneeIds[i])
-                    {
-                        var workByAssignee = reportModels.Where(x => x.AssigneeId == assigneeIds[i]);
-                        var result = new SearchTaskReportResult
-                        {
-                            Assignee = reportModels[j].AssigneeName,
-                            Total = workByAssignee.Count(),
-                            Total_Assigned = workByAssignee.Count(x => x.State == WorkEnum.State.Assigned),
-                            Total_Inprogress = workByAssignee.Count(x => x.State == WorkEnum.State.Processing),
-                            Total_Completed = workByAssignee.Count(x => x.State == WorkEnum.State.Completed),
-                            Total_Pause = workByAssignee.Count(x => x.State == WorkEnum.State.Pause),
-                            Total_OutDate = workByAssignee.Where(x => x.CreatedDate > DateTime.Now).Count()
-                        };
-                        lstResult.Add(result);
-                    }
-                }
+                    Assignee = workByAssignee.Select(x => x.AssigneeName).FirstOrDefault(),
+                    Total = workByAssignee.Count(),
+                    Total_Assigned = workByAssignee.Count(x => x.State == (int)WorkEnum.State.Assigned),
+                    Total_Inprogress = workByAssignee.Count(x => x.State == (int)WorkEnum.State.Processing),
+                    Total_Completed = workByAssignee.Count(x => x.State == (int)WorkEnum.State.Completed),
+                    Total_Pause = workByAssignee.Count(x => x.State == (int)WorkEnum.State.Pause),
+                    Total_OutDate = workByAssignee.Where(x => x.CreatedDate > DateTime.Now).Count()
+                };
+                lstResult.Add(result);
             }
             return lstResult;
         }
@@ -96,15 +90,15 @@ namespace WebCore.Services
             {
                 if (!string.IsNullOrWhiteSpace(model.DepartmentId))
                 {
-                    whereCondition = $@"A.AssignTo = {model.DepartmentId}";
+                    whereCondition = $@"WHERE A.AssignTo = '{model.DepartmentId}'";
                 }
                 sqlQuery = $@"
                        SELECT A.AssignTo AS 'AssigneeId',
                               B.Title AS 'AssigneeName',
-			                  A.[State] AS 'Status',
+			                  A.[State] AS 'State',
 			                  A.CreatedDate
 		                FROM [App_Work] A JOIN [dbo].[App_Department] B ON A.AssignTo = B.ID AND A.ReceptionType=2
-		                WHERE {whereCondition} ORDER BY A.CreatedDate DESC";
+		                 {whereCondition} ORDER BY A.CreatedDate DESC";
             }
 
             //Report by user
@@ -112,15 +106,15 @@ namespace WebCore.Services
             {
                 if (!string.IsNullOrWhiteSpace(model.EmpId))
                 {
-                    whereCondition = $@"C.ID = {model.EmpId}";
+                    whereCondition = $@"WHERE C.ID = '{model.EmpId}'";
                 }
                 sqlQuery = $@"SELECT C.ID AS 'AssigneeId',
-	                           C.FullName AS 'Assignee',
-	                           A.[State] AS 'Status',
+	                           C.FullName AS 'AssigneeName',
+	                           A.[State] AS 'State',
 	                           A.CreatedDate
                         FROM [dbo].[App_Work] A JOIN [dbo].[App_WorkUser] B ON A.ID = B.WorkID AND B.UserType = 1
 						                        JOIN [dbo].[View_User] C ON B.UserID = C.ID
-                        WHERE C.ID = {whereCondition} ORDER BY A.CreatedDate DESC";
+                        {whereCondition} ORDER BY A.CreatedDate DESC";
             }
             return sqlQuery;
         }

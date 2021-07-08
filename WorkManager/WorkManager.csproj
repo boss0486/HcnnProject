@@ -256,6 +256,7 @@
     <Content Include="Areas\Management\chat\jquery.signalR-2.2.2.min.js" />
     <Content Include="Areas\Management\chat\jquery.signalR-2.4.2.min.js" />
     <Content Include="Areas\Management\_script\account.js" />
+    <Content Include="Areas\Management\_script\app-work-report.js" />
     <Content Include="Areas\Management\_script\app-work-stack.js" />
     <Content Include="Areas\Management\_script\app-work.js" />
     <Content Include="Areas\Management\_script\app_work.js" />
@@ -1294,6 +1295,7 @@
     <Compile Include="Areas\Template\Controllers\MenuItemController.cs" />
     <Compile Include="Areas\Template\TemplateAreaRegistration.cs" />
     <Compile Include="ChatHub.cs" />
+    <Compile Include="Areas\Management\Controllers\WorkReportController.cs" />
     <Compile Include="Controllers\FaqController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1456,6 +1458,8 @@
     <Content Include="Areas\Management\Views\Work\Assign - Copy.cshtml" />
     <Content Include="Areas\Management\Views\Work\Process.cshtml" />
     <Content Include="Areas\Management\Views\Work\_Process - Copy.cshtml" />
+    <Content Include="Areas\Management\Views\WorkReport\DataList.cshtml" />
+    <Content Include="Areas\Management\Views\_ViewSearchReportPatial.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\ExportFile\ExOrder.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

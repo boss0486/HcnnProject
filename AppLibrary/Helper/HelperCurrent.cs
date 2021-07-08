@@ -91,6 +91,23 @@ namespace Helper.Current
             }
         }
 
+
+        public static int UserLevel
+        {
+            get
+            {
+                AuthenService service = new AuthenService();
+                var logged = service.LoggedModel();
+                UserSettingService userSettingService = new UserSettingService();
+                UserSetting userSetting = userSettingService.GetAlls(m => m.UserID == Helper.Current.UserLogin.IdentifierID).FirstOrDefault();
+                if (userSetting != null)
+                {
+                    return userSetting.DepartmentLevel;
+                }
+                return 0;
+            }
+        }
+
         public static Logged LoggedModel
         {
             get
@@ -154,7 +171,7 @@ namespace Helper.Current
                 {
                     return string.Empty;
                 }
-               
+
             }
         }
 

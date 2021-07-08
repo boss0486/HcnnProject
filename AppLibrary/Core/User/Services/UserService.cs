@@ -882,6 +882,54 @@ namespace WebCore.Services
             }
         }
 
+        public static string DDLUserForReport(string id)
+        {
+            string result = string.Empty;
+            using (var service = new UserService())
+            {
+                string whereCondition = " AND SiteID = @SiteID";
+                if (Helper.Current.UserLogin.IsAdminInApplication)
+                {
+                    // something here
+                }
+                else
+                {
+                    if (Helper.Current.UserLogin.UserLevel == 1) // truong phong 
+                    {
+                        UserSettingService userSettingService = new UserSettingService();
+                        UserSetting userSetting = userSettingService.GetAlls(m => m.UserID == Helper.Current.UserLogin.IdentifierID).FirstOrDefault();
+                        if (userSetting == null)
+                            return string.Empty;
+                        // 
+                        whereCondition += $" AND DepartmentID = '{userSetting.DepartmentID}'";
+                    }
+                    else
+                        whereCondition += $" AND ID = @UserID";
+                }
+                //
+                string sqlQuery = $"SELECT ID, FullName FROM View_User WHERE Enabled = @Enabled AND IsBlock = 0 {whereCondition} ORDER BY FullName ASC";
+                List<UserOption> dtList = service.Query<UserOption>(sqlQuery, new
+                {
+                    Enabled = (int)WebCore.Model.Enum.ModelEnum.State.ENABLED,
+                    SiteID = Helper.Current.UserLogin.SiteID,
+                    UserID = Helper.Current.UserLogin.IdentifierID
+                }).ToList();
+                //
+                if (dtList.Count == 0)
+                    return string.Empty;
+                // 
+                foreach (var item in dtList)
+                {
+                    string select = string.Empty;
+                    if (item.ID == id)
+                        select = "selected";
+                    //
+                    result += "<option value='" + item.ID + "'" + select + ">" + item.FullName + "</option>";
+                }
+                return result;
+            }
+        }
+
         //FUNTION FOR CURRENT ##############################################################################################################################################################################################################################################################
         public LoginInForModel LoginInformation(string userId)
         {

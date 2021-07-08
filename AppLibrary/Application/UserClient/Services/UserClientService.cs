@@ -322,7 +322,7 @@ namespace WebCore.Services
                         userSettingService.Execute("UPDATE UserSetting SET DepartmentLevel = 3 WHERE DepartmentID = @DepartmentID AND DepartmentLevel = 1 AND ID != @ID", new
                         {
                             DepartmentID = departmentId,
-                            ID = id 
+                            ID = id
                         }, transaction: _transaction);
                     }
                     // role
@@ -394,9 +394,9 @@ namespace WebCore.Services
                     if (string.IsNullOrWhiteSpace(departmentId))
                         return Notifization.Invalid("Vui lòng chọn phòng ban");
                     //
-                    if (string.IsNullOrWhiteSpace(departmentPartId))
-                        return Notifization.Invalid("Vui lòng chọn chức vụ");
-                    //
+                    //if (string.IsNullOrWhiteSpace(departmentPartId))
+                    //    return Notifization.Invalid("Vui lòng chọn chức vụ");
+                    ////
                     DepartmentService _departmentService = new DepartmentService(_connection);
                     DepartmentPartService _departmentPartService = new DepartmentPartService(_connection);
                     Department _department = _departmentService.GetAlls(m => m.ID == departmentId, transaction: _transaction).FirstOrDefault();
@@ -411,10 +411,10 @@ namespace WebCore.Services
                         //
                     }
                     //
-                    DepartmentPart _departmentPart = _departmentPartService.GetAlls(m => m.ID == departmentPartId, transaction: _transaction).FirstOrDefault();
-                    if (_departmentPart == null)
-                        return Notifization.Invalid("Chức vụ không hợp lệ");
-                    //    
+                    //DepartmentPart _departmentPart = _departmentPartService.GetAlls(m => m.ID == departmentPartId, transaction: _transaction).FirstOrDefault();
+                    //if (_departmentPart == null)
+                    //    return Notifization.Invalid("Chức vụ không hợp lệ");
+                    ////    
                     if (!string.IsNullOrWhiteSpace(roleId))
                     {
                         roleId = roleId.ToLower();
@@ -463,7 +463,10 @@ namespace WebCore.Services
                     //
                     if (departmentLevel == 1)
                     {
-                        userSettingService.Execute("UPDATE UserSetting SET DepartmentLevel = 3 WHERE DepartmentLevel = 1 AND ID != @ID", transaction: _transaction);
+                        userSettingService.Execute("UPDATE UserSetting SET DepartmentLevel = 3 WHERE DepartmentLevel = 1 AND UserID != @UserID", new
+                        {
+                            UserID = userId
+                        }, transaction: _transaction);
                     }
                     //
                     if (!string.IsNullOrWhiteSpace(roleId))

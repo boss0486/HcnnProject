@@ -12,7 +12,7 @@ namespace AppLibrary.Core.Model.ReportModel
     {
         public string AssigneeId { get; set; }
         public string AssigneeName { get; set; }
-        public WorkEnum.State State { get; set; }
+        public int State { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 

@@ -273,6 +273,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\WorkManager\Areas\Management\_script\app-work-report.js">
+      <Link>app-work-report.js</Link>
+    </Content>
     <Content Include="Content\PagedList.css" />
     <Content Include="File\no-img.gif" />
     <Content Include="Libraries\dll\AL.NetFrame.dll" />

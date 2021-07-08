@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = Helper.Page.MetaSEO.MetaTitle;
+}
+
+@using WebCore.Services;
+@using WebCore.Model.Services;
+
+@Html.Partial("~/Areas/Management/Views/_ViewSearchReportPatial.cshtml", null)
+@* control ******************************************************************************************************@
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="tbcol-id">#&nbsp;</th>
+                <th class="tbcol-none">Tên phòng ban</th>
+                <th class="tbcol-none">Tổng số công việc</th>
+                <th class="tbcol-none">Đã giao việc</th>
+                <th class="tbcol-none">Đang thực hiện</th>
+                <th class="tbcol-none">Hoàn thành</th>
+                <th class="tbcol-none">Tạm dừng</th>
+                <th class="tbcol-none">Quá hạn</th>
+            </tr>
+        </thead>
+        <tbody id="TblData"></tbody>
+    </table>
+</div>
+<div id="Pagination"></div>
+@section scripts{
+    <script src="~/Areas/Management/_script/app-work-report.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            appWorkReportController.DataList(1);
+        });
+    </script>
+}

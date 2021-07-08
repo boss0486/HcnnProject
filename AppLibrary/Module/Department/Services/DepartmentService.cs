@@ -245,6 +245,44 @@ namespace WebCore.Services
                 return result;
             }
         }
+        public static string DDLDepartMentForReport(string id)
+        {
+            string result = string.Empty;
+            string whereCondition = string.Empty;
+            using (var service = new DepartmentService())
+            {
+                if (Helper.Current.UserLogin.IsAdminInApplication)
+                {
+                    // something here
+                }
+                else
+                { 
+                    UserSettingService userSettingService = new UserSettingService();
+                    UserSetting userSetting = userSettingService.GetAlls(m => m.UserID == Helper.Current.UserLogin.IdentifierID).FirstOrDefault();
+                    if (userSetting == null)
+                        return string.Empty;
+                    // 
+                    whereCondition += $" AND DepartmentID = '{userSetting.DepartmentID}'";
+                }
+                string sqlQuery = $@"SELECT * FROM App_Department WHERE Enabled = 1 {whereCondition} AND SiteID = @SiteID ORDER BY Title ASC";
+
+                List<DepartmentOption> dtList = service.Query<DepartmentOption>(sqlQuery, new
+                {
+                    SiteID = Helper.Current.UserLogin.SiteID
+                }).ToList(); 
+                if (dtList.Count > 0)
+                {
+                    foreach (var item in dtList)
+                    {
+                        string select = string.Empty;
+                        if (!string.IsNullOrWhiteSpace(id) && item.ID == id.ToLower())
+                            select = "selected";
+                        result += "<option value='" + item.ID + "'" + select + ">" + item.Title + "</option>";
+                    }
+                }
+                return result;
+            }
+        }
         public List<DepartmentOption> DataOption(string languageId)
         {
             string sqlQuery = @"SELECT * FROM App_Department WHERE Enabled = 1 AND SiteID = @SiteID ORDER BY Title ASC";

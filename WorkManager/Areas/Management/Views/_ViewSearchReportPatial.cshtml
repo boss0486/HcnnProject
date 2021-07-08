@@ -1,0 +1,35 @@
+﻿@using WebCore.Services;
+@using WebCore.Services;
+@using WebCore.Model.Services;
+@*search control ******************************************************************************************************@
+
+@{
+    string addPath = string.Empty;
+    int vcol = 5;
+}
+<div class="row" data-keyenter="#btnSearch" data-datesearch="true">
+    <div class="col-md-2">
+        <div class="form-group ">
+            <select id="ddlDepartment" class="form-control show-tick" data-live-search="true">
+                <option value="-1">-Phòng ban-</option>
+                @Html.Raw(DepartmentService.DDLDepartMentForReport(""))
+            </select>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group ">
+            <select id="ddlUser" class="form-control show-tick" data-live-search="true">
+                <option value="-1">-Cán bộ-</option>
+                @Html.Raw(UserService.DDLUserForReport(""))
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-1" data-keyenter="#btnSearch">
+        <div class="form-group">
+            <span id="btnSearch" class="input-group-addon"><i class="fa fa-search -icons"></i></span>
+        </div>
+    </div>
+</div>
+@*search control ******************************************************************************************************@
+
