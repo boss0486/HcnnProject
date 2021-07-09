@@ -5,29 +5,45 @@
 
 @{
     string addPath = string.Empty;
-    int vcol = 5;
+    //get report type via query string (1: department | 2: user)
+    var paramType = Request.QueryString["type"];
+    int reportType = 1;
+    if (paramType != null)
+    {
+        reportType = int.Parse(Request.QueryString["type"]);
+    }
 }
 <div class="row" data-keyenter="#btnSearch" data-datesearch="true">
-    <div class="col-md-2">
-        <div class="form-group ">
-            <select id="ddlDepartment" class="form-control show-tick" data-live-search="true">
-                <option value="-1">-Phòng ban-</option>
-                @Html.Raw(DepartmentService.DDLDepartMentForReport(""))
-            </select>
+    @if (reportType == 1)
+    {
+        <div class="col-md-2">
+            <div class="form-group ">
+                <select id="ddlDepartment" class="form-control show-tick" data-live-search="true">
+                    <option value="-1">-Phòng ban-</option>
+                    @Html.Raw(DepartmentService.DDLDepartMentForReport(""))
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group ">
-            <select id="ddlUser" class="form-control show-tick" data-live-search="true">
-                <option value="-1">-Cán bộ-</option>
-                @Html.Raw(UserService.DDLUserForReport(""))
-            </select>
+    }
+    @if (reportType == 2)
+    {
+        <div class="col-md-2">
+            <div class="form-group ">
+                <select id="ddlUser" class="form-control show-tick" data-live-search="true">
+                    <option value="-1">-Cán bộ-</option>
+                    @Html.Raw(UserService.DDLUserForReport(""))
+                </select>
+            </div>
         </div>
-    </div>
-
+    }
     <div class="col-md-1" data-keyenter="#btnSearch">
         <div class="form-group">
             <span id="btnSearch" class="input-group-addon"><i class="fa fa-search -icons"></i></span>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class="form-group">
+            <span id="btnExport" class="input-group-addon">Export Excel</span>
         </div>
     </div>
 </div>

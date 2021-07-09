@@ -18,26 +18,24 @@ namespace WebApplication.Management.Controllers
     [RoutePrefix("Report")]
     public class WorkReportController : CMSController
     {
-
-
         public ActionResult DataList()
         {
             return View();
         }
-      
-    [HttpPost]
-    [Route("Action/DataList")]
-    public ActionResult DataList(SearchTaskReportModel model)
-    {
-        try
+
+        [HttpPost]
+        [Route("Action/DataList")]
+        public ActionResult DataList(SearchTaskReportModel model)
         {
-            TaskReportService service = new TaskReportService();
-            return service.DataList(model);
-        }
-        catch (Exception ex)
-        {
-            return Notifization.TEST("::" + ex);
+            try
+            {
+                TaskReportService service = new TaskReportService();
+                return service.DataList(model);
+            }
+            catch (Exception ex)
+            {
+                return Notifization.TEST("::" + ex);
+            }
         }
     }
-}
 }

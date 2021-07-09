@@ -1640,6 +1640,7 @@
     <Folder Include="Areas\Management\Data\" />
     <Folder Include="Areas\Template\Data\" />
     <Folder Include="Files\content\" />
+    <Folder Include="Files\export\Report\" />
     <Folder Include="Files\upload\2021\1\" />
     <Folder Include="Files\upload\news\" />
     <Folder Include="Files\upload\product\" />

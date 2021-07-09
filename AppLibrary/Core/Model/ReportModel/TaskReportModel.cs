@@ -21,6 +21,7 @@ namespace AppLibrary.Core.Model.ReportModel
         public string EmpId { get; set; }
         public string DepartmentId { get; set; }
         public int ReportType { get; set; }
+        public bool IsExportExcel { get; set; }
     }
 
     public class SearchTaskReportResult
