@@ -5171,6 +5171,9 @@ input.error {
 #btnSearch {
     cursor: pointer;
 }
+#btnExport {
+    cursor: pointer;
+}
 /* Color Picker ================================ */
 .colorpicker {
     z-index: 1;
