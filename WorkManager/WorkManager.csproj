@@ -1460,6 +1460,7 @@
     <Content Include="Areas\Management\Views\Work\_Process - Copy.cshtml" />
     <Content Include="Areas\Management\Views\WorkReport\DataList.cshtml" />
     <Content Include="Areas\Management\Views\_ViewSearchReportPatial.cshtml" />
+    <Content Include="Areas\Template\Views\_ViewNotify.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\ExportFile\ExOrder.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

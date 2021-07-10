@@ -37,8 +37,6 @@ namespace WebCore.Services
             WorkNotifyService notifyService = new WorkNotifyService(connection);
             var notifyObj = notifyService.GetAlls(x => x.ID == notifyId).FirstOrDefault();
             notifyObj.IsShow = false;
-            notifyService.Update(notifyObj, _transaction);
-
         }
     }
 }

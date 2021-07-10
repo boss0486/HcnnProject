@@ -113,10 +113,11 @@
 
         @try
         {
-            <div class="container-fluid">
-                @RenderBody()
-                <input id="txtAccessInApplication" type="hidden" value="@Helper.Current.UserLogin.UserRoleInApplication" />
-            </div>
+    <div class="container-fluid">
+        @RenderBody()
+        @Html.Partial("~/Areas/Template/Views/_ViewNotify.cshtml", null)
+        <input id="txtAccessInApplication" type="hidden" value="@Helper.Current.UserLogin.UserRoleInApplication" />
+    </div>
         }
         catch (Exception)
         {
