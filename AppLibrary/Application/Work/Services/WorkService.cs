@@ -229,6 +229,15 @@ namespace WebCore.Services
                     AttachmentIngredientService attachmentIngredientService = new AttachmentIngredientService(_connection);
                     attachmentIngredientService.UpdateFile((int)ModelEnum.FileType.MULTI, id, arrFile, transaction: _transaction, connection: _connection);
                     //
+                    WorkNotifyService workNotifyService = new WorkNotifyService();
+
+                    //Add work notify
+                    workNotifyService.AddNotify(new WorkNotify
+                    {
+                        WorkID = id,
+                        IsShow = true
+                    }, _transaction, _connection);
+
                     _transaction.Commit();
                     return Notifization.Success(MessageText.CreateSuccess);
                 }

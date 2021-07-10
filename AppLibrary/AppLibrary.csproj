@@ -148,11 +148,13 @@
     <Compile Include="Application\Chat\Entities\ChatConnect.cs" />
     <Compile Include="Application\Chat\Services\ChatConnectService.cs" />
     <Compile Include="Application\Report\Services\TaskReportService.cs" />
+    <Compile Include="Application\Work\Entities\WorkNotify.cs" />
     <Compile Include="Application\Work\Entities\WorkUser.cs" />
     <Compile Include="Application\Work\Entities\WorkPlan.cs" />
     <Compile Include="Application\Work\Entities\WorkState.cs" />
     <Compile Include="Application\Work\Entities\WorkStack.cs" />
     <Compile Include="Application\Work\Enum\WorkStackEnum.cs" />
+    <Compile Include="Application\Work\Services\WorkNotifyService .cs" />
     <Compile Include="Application\Work\Services\WorkStateService.cs" />
     <Compile Include="Application\Work\Services\WorkUserService.cs" />
     <Compile Include="Application\Work\Services\WorkStackService.cs" />
